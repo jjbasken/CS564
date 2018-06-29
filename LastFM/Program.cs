@@ -18,12 +18,12 @@ namespace LastFM
         static void Main(string[] args)
         {
             DataTable datatable = new DataTable();
-            StreamReader streamreader = new StreamReader(@"C:\Users\Jeremy\Desktop\hetrec2011-lastfm-2k\artists.dat");
+            StreamReader streamreader = new StreamReader("..\\..\\DataFiles\\hetrec2011-lastfm-2k\\artists.dat");
             char[] delimiter = new char[] { '\t' };
             string[] columnheaders = streamreader.ReadLine().Split(delimiter);
             foreach (string columnheader in columnheaders)
             {
-                datatable.Columns.Add(columnheader); // I've added the column headers here.
+                datatable.Columns.Add(columnheader); 
             }
 
             while (streamreader.Peek() > 0)
@@ -37,7 +37,7 @@ namespace LastFM
             String[] urlArray= { };
             String tab = "\t";
             String artistID = "";
-            String filePath = "C:\\Users\\Jeremy\\Desktop\\top50TracksByArtist.tsv";
+            String filePath = "..\\..\\DataFiles\\top50TracksByArtist2.tsv";
             foreach (DataRow row in datatable.Rows)
             {
                 Console.WriteLine("----Row No: " + datatable.Rows.IndexOf(row) + "----");
@@ -67,7 +67,6 @@ namespace LastFM
 
                 using (var client = new WebClient())
                 {
-                    //var json = client.DownloadString("http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist="+name+"&api_key=63c72dab50883717ce7f43ae709acc6f&autocorrect=1&limit=30&format=json");
                     var json = client.DownloadString("http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=" + name + "&api_key=63c72dab50883717ce7f43ae709acc6f&autocorrect=1&format=json");
                     var serializer = new JavaScriptSerializer();
                     var topalbums = serializer.Deserialize<RootObject>(json);
