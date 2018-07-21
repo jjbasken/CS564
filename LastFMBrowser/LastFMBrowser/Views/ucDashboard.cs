@@ -11,9 +11,9 @@ using LastFMBrowser.Interfaces;
 
 namespace LastFMBrowser.Views
 {
-    public partial class ucUserPage : UserControl, ISwapPanelSubForm
+    public partial class ucDashboard : UserControl, ISwapPanelSubForm
     {
-        public ucUserPage()
+        public ucDashboard()
         {
             InitializeComponent();
         }
@@ -24,6 +24,11 @@ namespace LastFMBrowser.Views
         public void RefreshUserControl()
         {
             throw new NotImplementedException();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

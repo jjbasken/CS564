@@ -97,11 +97,11 @@
     <Compile Include="Views\ucMainMenu.designer.cs">
       <DependentUpon>ucMainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ucUserPage.cs">
+    <Compile Include="Views\ucDashboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ucUserPage.Designer.cs">
-      <DependentUpon>ucUserPage.cs</DependentUpon>
+    <Compile Include="Views\ucDashboard.Designer.cs">
+      <DependentUpon>ucDashboard.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -145,8 +145,8 @@
     <EmbeddedResource Include="Views\ucMainMenu.resx">
       <DependentUpon>ucMainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ucUserPage.resx">
-      <DependentUpon>ucUserPage.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ucDashboard.resx">
+      <DependentUpon>ucDashboard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
