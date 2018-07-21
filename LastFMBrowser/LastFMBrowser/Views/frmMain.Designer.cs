@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.NavPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblIcon = new System.Windows.Forms.Label();
             this.btnDashboard = new System.Windows.Forms.Button();
             this.btnArtist = new System.Windows.Forms.Button();
-            this.lblIcon = new System.Windows.Forms.Label();
             this.SwapPanel = new System.Windows.Forms.Panel();
             this.lblFooter = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -51,6 +51,19 @@
             this.NavPanel.Name = "NavPanel";
             this.NavPanel.Size = new System.Drawing.Size(195, 589);
             this.NavPanel.TabIndex = 0;
+            // 
+            // lblIcon
+            // 
+            this.lblIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblIcon.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblIcon.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIcon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(244)))), ((int)(((byte)(210)))));
+            this.lblIcon.Location = new System.Drawing.Point(3, 0);
+            this.lblIcon.Name = "lblIcon";
+            this.lblIcon.Size = new System.Drawing.Size(195, 71);
+            this.lblIcon.TabIndex = 2;
+            this.lblIcon.Text = "BrowseFM";
+            this.lblIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnDashboard
             // 
@@ -90,25 +103,12 @@
             this.btnArtist.UseVisualStyleBackColor = false;
             this.btnArtist.Click += new System.EventHandler(this.btnArtist_Click);
             // 
-            // lblIcon
-            // 
-            this.lblIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblIcon.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblIcon.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIcon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(244)))), ((int)(((byte)(210)))));
-            this.lblIcon.Location = new System.Drawing.Point(3, 0);
-            this.lblIcon.Name = "lblIcon";
-            this.lblIcon.Size = new System.Drawing.Size(195, 71);
-            this.lblIcon.TabIndex = 2;
-            this.lblIcon.Text = "BrowseFM";
-            this.lblIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // SwapPanel
             // 
             this.SwapPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SwapPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(244)))), ((int)(((byte)(210)))));
+            this.SwapPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
             this.SwapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SwapPanel.Location = new System.Drawing.Point(201, 71);
             this.SwapPanel.Name = "SwapPanel";
@@ -126,7 +126,7 @@
             this.lblFooter.Name = "lblFooter";
             this.lblFooter.Size = new System.Drawing.Size(1093, 21);
             this.lblFooter.TabIndex = 2;
-            this.lblFooter.Text = "Some sort of status can go down here, controlled by the SwapPanel user control";
+            this.lblFooter.Text = ". . .";
             // 
             // lblTitle
             // 

@@ -32,7 +32,9 @@ namespace LastFMBrowser.Views
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            ClearPageFooter();
             LoadSubForm();
+            
         }
 
         /********************************
@@ -50,7 +52,12 @@ namespace LastFMBrowser.Views
 
         public void SetPageFooter(String newFooter)
         {
+            lblFooter.Text = newFooter;
+        }
 
+        public void ClearPageFooter()
+        {
+            SetPageFooter(". . .");
         }
 
         /********************************
