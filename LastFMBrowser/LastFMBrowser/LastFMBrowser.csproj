@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{519BC5D1-8D5D-429D-8E37-BCEE4E23F842}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>LastFMBrowser</RootNamespace>
+    <AssemblyName>LastFMBrowser</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Models\LastFmModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LastFmModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\LastFmModel.edmx.diagram">
+      <DependentUpon>LastFmModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\ctrlMain.cs" />
+    <Compile Include="Interfaces\ISwapPanelSubForm.cs" />
+    <Compile Include="Models\LastFmModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LastFmModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LastFmModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LastFmModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LastFmModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\lnkUserArtist.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\lnkUserTagArtist.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblArtist.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblTag.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblTrack.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUser.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ctrlDynamicMenuExpandable.cs" />
+    <Compile Include="Views\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucArtistPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucArtistPage.Designer.cs">
+      <DependentUpon>ucArtistPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucMainMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucMainMenu.designer.cs">
+      <DependentUpon>ucMainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucUserPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucUserPage.Designer.cs">
+      <DependentUpon>ucUserPage.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\LastFmModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LastFmModel.Context.cs</LastGenOutput>
+      <DependentUpon>LastFmModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\LastFmModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LastFmModel.edmx</DependentUpon>
+      <LastGenOutput>LastFmModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucArtistPage.resx">
+      <DependentUpon>ucArtistPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucMainMenu.resx">
+      <DependentUpon>ucMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucUserPage.resx">
+      <DependentUpon>ucUserPage.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LastFMDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="lnkUserArtist">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="ArtistID" Type="bigint" Nullable="false" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <EntityType Name="lnkUserFriends">
+          <Key>
+            <PropertyRef Name="userID" />
+            <PropertyRef Name="friendID" />
+          </Key>
+          <Property Name="userID" Type="bigint" Nullable="false" />
+          <Property Name="friendID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lnkUserTagArtist">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ArtistID" />
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="ArtistID" Type="bigint" Nullable="false" />
+          <Property Name="TagID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblArtist">
+          <Key>
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="ArtistID" Type="bigint" Nullable="false" />
+          <Property Name="ArtistName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BandURL" Type="varchar" MaxLength="200" />
+          <Property Name="BandPictureURL" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblTags">
+          <Key>
+            <PropertyRef Name="tagID" />
+          </Key>
+          <Property Name="tagID" Type="int" Nullable="false" />
+          <Property Name="tagValue" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTracks">
+          <Key>
+            <PropertyRef Name="mbID" />
+          </Key>
+          <Property Name="ArtistID" Type="bigint" Nullable="false" />
+          <Property Name="mbID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TrackTitle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PlayCount" Type="bigint" />
+          <Property Name="TrackURL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="bigint" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__lnkUserAr__Artis__693CA210">
+          <End Role="tblArtist" Type="Self.tblArtist" Multiplicity="1" />
+          <End Role="lnkUserArtist" Type="Self.lnkUserArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="lnkUserArtist">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserAr__UserI__68487DD7">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="lnkUserArtist" Type="Self.lnkUserArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="lnkUserArtist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserFr__frien__628FA481">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="lnkUserFriends" Type="Self.lnkUserFriends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="lnkUserFriends">
+              <PropertyRef Name="friendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserFr__userI__619B8048">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="lnkUserFriends" Type="Self.lnkUserFriends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="lnkUserFriends">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserTa__Artis__6E01572D">
+          <End Role="tblArtist" Type="Self.tblArtist" Multiplicity="1" />
+          <End Role="lnkUserTagArtist" Type="Self.lnkUserTagArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="lnkUserTagArtist">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserTa__TagID__6EF57B66">
+          <End Role="tblTags" Type="Self.tblTags" Multiplicity="1" />
+          <End Role="lnkUserTagArtist" Type="Self.lnkUserTagArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTags">
+              <PropertyRef Name="tagID" />
+            </Principal>
+            <Dependent Role="lnkUserTagArtist">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserTa__UserI__6D0D32F4">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="lnkUserTagArtist" Type="Self.lnkUserTagArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="lnkUserTagArtist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTracks__Artis__0B91BA14">
+          <End Role="tblArtist" Type="Self.tblArtist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblTracks" Type="Self.tblTracks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="tblTracks">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LastFMDataModelStoreContainer">
+          <EntitySet Name="lnkUserArtist" EntityType="Self.lnkUserArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lnkUserFriends" EntityType="Self.lnkUserFriends" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lnkUserTagArtist" EntityType="Self.lnkUserTagArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblArtist" EntityType="Self.tblArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTags" EntityType="Self.tblTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTracks" EntityType="Self.tblTracks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__lnkUserAr__Artis__693CA210" Association="Self.FK__lnkUserAr__Artis__693CA210">
+            <End Role="tblArtist" EntitySet="tblArtist" />
+            <End Role="lnkUserArtist" EntitySet="lnkUserArtist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserAr__UserI__68487DD7" Association="Self.FK__lnkUserAr__UserI__68487DD7">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="lnkUserArtist" EntitySet="lnkUserArtist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserFr__frien__628FA481" Association="Self.FK__lnkUserFr__frien__628FA481">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="lnkUserFriends" EntitySet="lnkUserFriends" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserFr__userI__619B8048" Association="Self.FK__lnkUserFr__userI__619B8048">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="lnkUserFriends" EntitySet="lnkUserFriends" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserTa__Artis__6E01572D" Association="Self.FK__lnkUserTa__Artis__6E01572D">
+            <End Role="tblArtist" EntitySet="tblArtist" />
+            <End Role="lnkUserTagArtist" EntitySet="lnkUserTagArtist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserTa__TagID__6EF57B66" Association="Self.FK__lnkUserTa__TagID__6EF57B66">
+            <End Role="tblTags" EntitySet="tblTags" />
+            <End Role="lnkUserTagArtist" EntitySet="lnkUserTagArtist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserTa__UserI__6D0D32F4" Association="Self.FK__lnkUserTa__UserI__6D0D32F4">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="lnkUserTagArtist" EntitySet="lnkUserTagArtist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTracks__Artis__0B91BA14" Association="Self.FK__tblTracks__Artis__0B91BA14">
+            <End Role="tblArtist" EntitySet="tblArtist" />
+            <End Role="tblTracks" EntitySet="tblTracks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LastFMDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="lnkUserArtist">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="ArtistID" Type="Int64" Nullable="false" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="tblArtist" Relationship="Self.FK__lnkUserAr__Artis__693CA210" FromRole="lnkUserArtist" ToRole="tblArtist" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__lnkUserAr__UserI__68487DD7" FromRole="lnkUserArtist" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="lnkUserTagArtist">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ArtistID" />
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="ArtistID" Type="Int64" Nullable="false" />
+          <Property Name="TagID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblArtist" Relationship="Self.FK__lnkUserTa__Artis__6E01572D" FromRole="lnkUserTagArtist" ToRole="tblArtist" />
+          <NavigationProperty Name="tblTag" Relationship="Self.FK__lnkUserTa__TagID__6EF57B66" FromRole="lnkUserTagArtist" ToRole="tblTags" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__lnkUserTa__UserI__6D0D32F4" FromRole="lnkUserTagArtist" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblArtist">
+          <Key>
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="ArtistID" Type="Int64" Nullable="false" />
+          <Property Name="ArtistName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BandURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BandPictureURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="lnkUserArtists" Relationship="Self.FK__lnkUserAr__Artis__693CA210" FromRole="tblArtist" ToRole="lnkUserArtist" />
+          <NavigationProperty Name="lnkUserTagArtists" Relationship="Self.FK__lnkUserTa__Artis__6E01572D" FromRole="tblArtist" ToRole="lnkUserTagArtist" />
+          <NavigationProperty Name="tblTracks" Relationship="Self.FK__tblTracks__Artis__0B91BA14" FromRole="tblArtist" ToRole="tblTracks" />
+        </EntityType>
+        <EntityType Name="tblTag">
+          <Key>
+            <PropertyRef Name="tagID" />
+          </Key>
+          <Property Name="tagID" Type="Int32" Nullable="false" />
+          <Property Name="tagValue" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="lnkUserTagArtists" Relationship="Self.FK__lnkUserTa__TagID__6EF57B66" FromRole="tblTags" ToRole="lnkUserTagArtist" />
+        </EntityType>
+        <EntityType Name="tblTrack">
+          <Key>
+            <PropertyRef Name="mbID" />
+          </Key>
+          <Property Name="ArtistID" Type="Int64" Nullable="false" />
+          <Property Name="mbID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TrackTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PlayCount" Type="Int64" />
+          <Property Name="TrackURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblArtist" Relationship="Self.FK__tblTracks__Artis__0B91BA14" FromRole="tblTracks" ToRole="tblArtist" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int64" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="lnkUserArtists" Relationship="Self.FK__lnkUserAr__UserI__68487DD7" FromRole="tblUsers" ToRole="lnkUserArtist" />
+          <NavigationProperty Name="lnkUserTagArtists" Relationship="Self.FK__lnkUserTa__UserI__6D0D32F4" FromRole="tblUsers" ToRole="lnkUserTagArtist" />
+          <NavigationProperty Name="tblUsers1" Relationship="Self.lnkUserFriends" FromRole="tblUsers" ToRole="tblUsers1" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.lnkUserFriends" FromRole="tblUsers1" ToRole="tblUsers" />
+        </EntityType>
+        <Association Name="FK__lnkUserAr__Artis__693CA210">
+          <End Role="tblArtist" Type="Self.tblArtist" Multiplicity="1" />
+          <End Role="lnkUserArtist" Type="Self.lnkUserArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="lnkUserArtist">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserAr__UserI__68487DD7">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="lnkUserArtist" Type="Self.lnkUserArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="lnkUserArtist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserTa__Artis__6E01572D">
+          <End Role="tblArtist" Type="Self.tblArtist" Multiplicity="1" />
+          <End Role="lnkUserTagArtist" Type="Self.lnkUserTagArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="lnkUserTagArtist">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserTa__TagID__6EF57B66">
+          <End Role="tblTags" Type="Self.tblTag" Multiplicity="1" />
+          <End Role="lnkUserTagArtist" Type="Self.lnkUserTagArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTags">
+              <PropertyRef Name="tagID" />
+            </Principal>
+            <Dependent Role="lnkUserTagArtist">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lnkUserTa__UserI__6D0D32F4">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="lnkUserTagArtist" Type="Self.lnkUserTagArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="lnkUserTagArtist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTracks__Artis__0B91BA14">
+          <End Role="tblArtist" Type="Self.tblArtist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblTracks" Type="Self.tblTrack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="tblTracks">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lnkUserFriends">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="*" />
+          <End Role="tblUsers1" Type="Self.tblUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="LastFMDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="lnkUserArtists" EntityType="Self.lnkUserArtist" />
+          <EntitySet Name="lnkUserTagArtists" EntityType="Self.lnkUserTagArtist" />
+          <EntitySet Name="tblArtists" EntityType="Self.tblArtist" />
+          <EntitySet Name="tblTags" EntityType="Self.tblTag" />
+          <EntitySet Name="tblTracks" EntityType="Self.tblTrack" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK__lnkUserAr__Artis__693CA210" Association="Self.FK__lnkUserAr__Artis__693CA210">
+            <End Role="tblArtist" EntitySet="tblArtists" />
+            <End Role="lnkUserArtist" EntitySet="lnkUserArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserAr__UserI__68487DD7" Association="Self.FK__lnkUserAr__UserI__68487DD7">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="lnkUserArtist" EntitySet="lnkUserArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserTa__Artis__6E01572D" Association="Self.FK__lnkUserTa__Artis__6E01572D">
+            <End Role="tblArtist" EntitySet="tblArtists" />
+            <End Role="lnkUserTagArtist" EntitySet="lnkUserTagArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserTa__TagID__6EF57B66" Association="Self.FK__lnkUserTa__TagID__6EF57B66">
+            <End Role="tblTags" EntitySet="tblTags" />
+            <End Role="lnkUserTagArtist" EntitySet="lnkUserTagArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lnkUserTa__UserI__6D0D32F4" Association="Self.FK__lnkUserTa__UserI__6D0D32F4">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="lnkUserTagArtist" EntitySet="lnkUserTagArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTracks__Artis__0B91BA14" Association="Self.FK__tblTracks__Artis__0B91BA14">
+            <End Role="tblArtist" EntitySet="tblArtists" />
+            <End Role="tblTracks" EntitySet="tblTracks" />
+          </AssociationSet>
+          <AssociationSet Name="lnkUserFriends" Association="Self.lnkUserFriends">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblUsers1" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LastFMDataModelStoreContainer" CdmEntityContainer="LastFMDataEntities">
+          <EntitySetMapping Name="lnkUserArtists">
+            <EntityTypeMapping TypeName="LastFMDataModel.lnkUserArtist">
+              <MappingFragment StoreEntitySet="lnkUserArtist">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lnkUserTagArtists">
+            <EntityTypeMapping TypeName="LastFMDataModel.lnkUserTagArtist">
+              <MappingFragment StoreEntitySet="lnkUserTagArtist">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblArtists">
+            <EntityTypeMapping TypeName="LastFMDataModel.tblArtist">
+              <MappingFragment StoreEntitySet="tblArtist">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="ArtistName" ColumnName="ArtistName" />
+                <ScalarProperty Name="BandURL" ColumnName="BandURL" />
+                <ScalarProperty Name="BandPictureURL" ColumnName="BandPictureURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTags">
+            <EntityTypeMapping TypeName="LastFMDataModel.tblTag">
+              <MappingFragment StoreEntitySet="tblTags">
+                <ScalarProperty Name="tagID" ColumnName="tagID" />
+                <ScalarProperty Name="tagValue" ColumnName="tagValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTracks">
+            <EntityTypeMapping TypeName="LastFMDataModel.tblTrack">
+              <MappingFragment StoreEntitySet="tblTracks">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="mbID" ColumnName="mbID" />
+                <ScalarProperty Name="TrackTitle" ColumnName="TrackTitle" />
+                <ScalarProperty Name="PlayCount" ColumnName="PlayCount" />
+                <ScalarProperty Name="TrackURL" ColumnName="TrackURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="LastFMDataModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="lnkUserFriends" TypeName="LastFMDataModel.lnkUserFriends" StoreEntitySet="lnkUserFriends">
+            <EndProperty Name="tblUsers">
+              <ScalarProperty Name="userID" ColumnName="friendID" />
+            </EndProperty>
+            <EndProperty Name="tblUsers1">
+              <ScalarProperty Name="userID" ColumnName="userID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
