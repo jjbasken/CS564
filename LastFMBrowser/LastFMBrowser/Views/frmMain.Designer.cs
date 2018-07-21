@@ -35,6 +35,7 @@
             this.SwapPanel = new System.Windows.Forms.Panel();
             this.lblFooter = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.btnEditProfile = new System.Windows.Forms.Button();
             this.NavPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             this.NavPanel.Controls.Add(this.lblIcon);
             this.NavPanel.Controls.Add(this.btnDashboard);
             this.NavPanel.Controls.Add(this.btnArtist);
+            this.NavPanel.Controls.Add(this.btnEditProfile);
             this.NavPanel.Location = new System.Drawing.Point(3, 0);
             this.NavPanel.Margin = new System.Windows.Forms.Padding(0);
             this.NavPanel.Name = "NavPanel";
@@ -69,7 +71,8 @@
             // 
             this.btnDashboard.AutoEllipsis = true;
             this.btnDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(197)))), ((int)(((byte)(236)))));
-            this.btnDashboard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnDashboard.FlatAppearance.BorderColor = System.Drawing.Color.MediumPurple;
+            this.btnDashboard.FlatAppearance.BorderSize = 0;
             this.btnDashboard.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
             this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(252)))), ((int)(((byte)(230)))));
             this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -88,7 +91,7 @@
             // 
             this.btnArtist.AutoEllipsis = true;
             this.btnArtist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(197)))), ((int)(((byte)(236)))));
-            this.btnArtist.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnArtist.FlatAppearance.BorderColor = System.Drawing.Color.MediumPurple;
             this.btnArtist.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
             this.btnArtist.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(252)))), ((int)(((byte)(230)))));
             this.btnArtist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -143,6 +146,25 @@
             this.lblTitle.Text = "Dashboard";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnEditProfile
+            // 
+            this.btnEditProfile.AutoEllipsis = true;
+            this.btnEditProfile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(197)))), ((int)(((byte)(236)))));
+            this.btnEditProfile.FlatAppearance.BorderColor = System.Drawing.Color.MediumPurple;
+            this.btnEditProfile.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.btnEditProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(252)))), ((int)(((byte)(230)))));
+            this.btnEditProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditProfile.Font = new System.Drawing.Font("Baskerville Old Face", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(9)))), ((int)(((byte)(0)))));
+            this.btnEditProfile.Location = new System.Drawing.Point(2, 157);
+            this.btnEditProfile.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.btnEditProfile.Name = "btnEditProfile";
+            this.btnEditProfile.Size = new System.Drawing.Size(191, 41);
+            this.btnEditProfile.TabIndex = 3;
+            this.btnEditProfile.Text = "Edit Profile";
+            this.btnEditProfile.UseVisualStyleBackColor = false;
+            this.btnEditProfile.Click += new System.EventHandler(this.btnEditProfile_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,5 +191,6 @@
         private System.Windows.Forms.Button btnArtist;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblIcon;
+        private System.Windows.Forms.Button btnEditProfile;
     }
 }

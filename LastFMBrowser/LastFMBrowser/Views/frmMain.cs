@@ -91,11 +91,19 @@ namespace LastFMBrowser.Views
         }
 
 
+        public void LoadProfilePage()
+        {
+            ISwapPanelSubForm ctrl = new ucEditProfile();
+            SetSubForm(ctrl, btnEditProfile);
+        }
+        
+
+
         /// <summary>
         ///     Actually handles the subform swap
         /// </summary>
         /// <param name="mSubForm"> The sub form you want to load into the SwapPanel </param>
-        private void SetSubForm(ISwapPanelSubForm mSubForm, Control optSender = null)
+        private void SetSubForm(ISwapPanelSubForm mSubForm, Button optSender = null)
         {
             Console.WriteLine("Setting the sub form");
             if (SwapPanel.Controls.Count > 0)
@@ -112,7 +120,11 @@ namespace LastFMBrowser.Views
             }
 
             //track current button text because it serves as the main title
-            if(optSender != null) CurrentSubForm = optSender.Text;
+            if (optSender != null)
+            {
+                CurrentSubForm = optSender.Text;
+                SetBtnSelection(optSender);
+            }
             SetPageTitle("");
 
             //Set anchor so sub form can shrink and grow
@@ -120,6 +132,30 @@ namespace LastFMBrowser.Views
             SwapPanel.Controls.Add((Control)mSubForm);
         }
 
+        /// <summary>
+        ///     Adds border to button that is selected
+        /// </summary>
+        /// <param name="Sender"></param>
+        private void SetBtnSelection(Button Sender)
+        {
+            foreach (Control ctrl in NavPanel.Controls)
+            {
+                if (ctrl.GetType() == typeof(Button))
+                    SetButtonSelectedState((Button) ctrl, ctrl == Sender);
+            }
+        }
+
+        private void SetButtonSelectedState(Button ctrl, Boolean State)
+        {
+            if (State) ctrl.FlatAppearance.BorderSize = 3;
+            else ctrl.FlatAppearance.BorderSize = 0;
+
+        }
+
+        private void SetButtonUnselected()
+        {
+
+        }
         /********************************
          * Form Driven Events
         ********************************/
@@ -137,5 +173,9 @@ namespace LastFMBrowser.Views
             LoadArtistPage();
         }
 
+        private void btnEditProfile_Click(object sender, EventArgs e)
+        {
+            LoadProfilePage();
+        }
     }
 }
