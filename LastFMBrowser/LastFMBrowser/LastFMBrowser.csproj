@@ -78,7 +78,6 @@
     <Compile Include="Models\tblUser.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Tools\ctrlDynamicMenuExpandable.cs" />
     <Compile Include="Views\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,12 +89,6 @@
     </Compile>
     <Compile Include="Views\ucArtistPage.Designer.cs">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ucMainMenu.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ucMainMenu.designer.cs">
-      <DependentUpon>ucMainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ucDashboard.cs">
       <SubType>UserControl</SubType>
@@ -142,12 +135,12 @@
     <EmbeddedResource Include="Views\ucArtistPage.resx">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ucMainMenu.resx">
-      <DependentUpon>ucMainMenu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucDashboard.resx">
       <DependentUpon>ucDashboard.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
