@@ -11,7 +11,7 @@ namespace LastFMBrowser.Controllers
         public static void Main(String[] args)
         {
             Application.Run(new frmMain());
-            //Application.Run(new Workbench());
+            //Application.Run(new Tools.Workbench());
         }
     }
 }

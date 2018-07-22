@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{519BC5D1-8D5D-429D-8E37-BCEE4E23F842}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>LastFMBrowser</RootNamespace>
     <AssemblyName>LastFMBrowser</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -66,6 +69,9 @@
     <Compile Include="Models\lnkUserTagArtist.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysMenuList.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblArtist.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
@@ -77,6 +83,13 @@
     </Compile>
     <Compile Include="Models\tblUser.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ctrlDynamicMenuExpandable.cs" />
+    <Compile Include="Tools\Workbench.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\Workbench.designer.cs">
+      <DependentUpon>Workbench.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmMain.cs">
       <SubType>Form</SubType>
@@ -101,6 +114,12 @@
     </Compile>
     <Compile Include="Views\ucEditProfile.Designer.cs">
       <DependentUpon>ucEditProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucMainMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucMainMenu.designer.cs">
+      <DependentUpon>ucMainMenu.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +154,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Tools\Workbench.resx">
+      <DependentUpon>Workbench.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,9 +169,10 @@
     <EmbeddedResource Include="Views\ucEditProfile.resx">
       <DependentUpon>ucEditProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucMainMenu.resx">
+      <DependentUpon>ucMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tools\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

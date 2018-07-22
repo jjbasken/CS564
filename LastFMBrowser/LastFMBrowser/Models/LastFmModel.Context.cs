@@ -31,5 +31,6 @@ namespace LastFMBrowser.Models
         public virtual DbSet<tblTag> tblTags { get; set; }
         public virtual DbSet<tblTrack> tblTracks { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<sysMenuList> sysMenuLists { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LastFMDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LastFMDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="lnkUserArtist">
           <Key>
             <PropertyRef Name="UserID" />
@@ -31,6 +31,16 @@
           <Property Name="UserID" Type="bigint" Nullable="false" />
           <Property Name="ArtistID" Type="bigint" Nullable="false" />
           <Property Name="TagID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysMenuList">
+          <Key>
+            <PropertyRef Name="menuID" />
+          </Key>
+          <Property Name="menuID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="menuText" Type="varchar" MaxLength="255" />
+          <Property Name="menuSubFormName" Type="varchar" MaxLength="255" />
+          <Property Name="Rank" Type="int" />
+          <Property Name="isDefault" Type="bit" />
         </EntityType>
         <EntityType Name="tblArtist">
           <Key>
@@ -167,6 +177,7 @@
           <EntitySet Name="lnkUserArtist" EntityType="Self.lnkUserArtist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lnkUserFriends" EntityType="Self.lnkUserFriends" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lnkUserTagArtist" EntityType="Self.lnkUserTagArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysMenuList" EntityType="Self.sysMenuList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblArtist" EntityType="Self.tblArtist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTags" EntityType="Self.tblTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTracks" EntityType="Self.tblTracks" Schema="dbo" store:Type="Tables" />
@@ -204,8 +215,7 @@
             <End Role="tblTracks" EntitySet="tblTracks" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LastFMDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -388,7 +398,18 @@
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblUsers1" EntitySet="tblUsers" />
           </AssociationSet>
+          <EntitySet Name="sysMenuLists" EntityType="LastFMDataModel.sysMenuList" />
         </EntityContainer>
+        <EntityType Name="sysMenuList">
+          <Key>
+            <PropertyRef Name="menuID" />
+          </Key>
+          <Property Name="menuID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="menuText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="menuSubFormName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Rank" Type="Int32" />
+          <Property Name="isDefault" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -458,6 +479,17 @@
               <ScalarProperty Name="userID" ColumnName="userID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="sysMenuLists">
+            <EntityTypeMapping TypeName="LastFMDataModel.sysMenuList">
+              <MappingFragment StoreEntitySet="sysMenuList">
+                <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="menuSubFormName" ColumnName="menuSubFormName" />
+                <ScalarProperty Name="menuText" ColumnName="menuText" />
+                <ScalarProperty Name="menuID" ColumnName="menuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
