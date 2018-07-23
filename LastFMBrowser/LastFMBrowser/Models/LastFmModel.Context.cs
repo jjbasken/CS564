@@ -12,6 +12,8 @@ namespace LastFMBrowser.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class LastFMDataEntities : DbContext
     {
@@ -32,5 +34,31 @@ namespace LastFMBrowser.Models
         public virtual DbSet<tblTrack> tblTracks { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<sysMenuList> sysMenuLists { get; set; }
+    
+        public virtual ObjectResult<GET_SIMILAR_ARTISTS_Result> GET_SIMILAR_ARTISTS(Nullable<long> artistID)
+        {
+            var artistIDParameter = artistID.HasValue ?
+                new ObjectParameter("ArtistID", artistID) :
+                new ObjectParameter("ArtistID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_SIMILAR_ARTISTS_Result>("GET_SIMILAR_ARTISTS", artistIDParameter);
+        }
+    
+        public virtual int TAG_ARTIST(Nullable<long> uSERID, Nullable<long> aRTIST, string tAGVALUE)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            var tAGVALUEParameter = tAGVALUE != null ?
+                new ObjectParameter("TAGVALUE", tAGVALUE) :
+                new ObjectParameter("TAGVALUE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TAG_ARTIST", uSERIDParameter, aRTISTParameter, tAGVALUEParameter);
+        }
     }
 }
