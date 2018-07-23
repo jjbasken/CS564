@@ -103,6 +103,12 @@
     <Compile Include="Views\ucArtistPage.Designer.cs">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ucBrowseUsers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucBrowseUsers.Designer.cs">
+      <DependentUpon>ucBrowseUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ucDashboard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,11 +121,23 @@
     <Compile Include="Views\ucEditProfile.Designer.cs">
       <DependentUpon>ucEditProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ucFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucFilter.Designer.cs">
+      <DependentUpon>ucFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ucMainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ucMainMenu.designer.cs">
       <DependentUpon>ucMainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\uctrlTop5ArtistChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\uctrlTop5ArtistChart.Designer.cs">
+      <DependentUpon>uctrlTop5ArtistChart.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +154,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -163,14 +182,23 @@
     <EmbeddedResource Include="Views\ucArtistPage.resx">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucBrowseUsers.resx">
+      <DependentUpon>ucBrowseUsers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucDashboard.resx">
       <DependentUpon>ucDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucEditProfile.resx">
       <DependentUpon>ucEditProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucFilter.resx">
+      <DependentUpon>ucFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ucMainMenu.resx">
       <DependentUpon>ucMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\uctrlTop5ArtistChart.resx">
+      <DependentUpon>uctrlTop5ArtistChart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

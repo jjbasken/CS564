@@ -32,9 +32,10 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.lblIcon = new System.Windows.Forms.Label();
+            this.lblFooterDate = new System.Windows.Forms.Label();
+            this.lblFooter = new System.Windows.Forms.Label();
             this.btnUCMin = new System.Windows.Forms.Button();
             this.SwapPanel = new System.Windows.Forms.Panel();
-            this.lblFooter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -63,7 +64,7 @@
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(887, 71);
+            this.lblTitle.Size = new System.Drawing.Size(893, 71);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Dashboard";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -86,6 +87,7 @@
             // 
             // splitMain.Panel2
             // 
+            this.splitMain.Panel2.Controls.Add(this.lblFooterDate);
             this.splitMain.Panel2.Controls.Add(this.lblFooter);
             this.splitMain.Panel2.Controls.Add(this.btnUCMin);
             this.splitMain.Panel2.Controls.Add(this.lblTitle);
@@ -110,19 +112,45 @@
             this.lblIcon.Text = "BrowseFM";
             this.lblIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblFooterDate
+            // 
+            this.lblFooterDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFooterDate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(94)))), ((int)(((byte)(81)))));
+            this.lblFooterDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFooterDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(179)))), ((int)(((byte)(160)))));
+            this.lblFooterDate.Location = new System.Drawing.Point(709, 592);
+            this.lblFooterDate.Name = "lblFooterDate";
+            this.lblFooterDate.Size = new System.Drawing.Size(174, 21);
+            this.lblFooterDate.TabIndex = 91;
+            this.lblFooterDate.Text = ". . .";
+            this.lblFooterDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFooter
+            // 
+            this.lblFooter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(94)))), ((int)(((byte)(81)))));
+            this.lblFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFooter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(179)))), ((int)(((byte)(160)))));
+            this.lblFooter.Location = new System.Drawing.Point(0, 592);
+            this.lblFooter.Name = "lblFooter";
+            this.lblFooter.Size = new System.Drawing.Size(706, 21);
+            this.lblFooter.TabIndex = 4;
+            this.lblFooter.Text = ". . .";
+            this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btnUCMin
             // 
             this.btnUCMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(38)))), ((int)(((byte)(41)))));
-            this.btnUCMin.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnUCMin.FlatAppearance.BorderSize = 0;
-            this.btnUCMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Navy;
-            this.btnUCMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUCMin.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnUCMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGoldenrod;
+            this.btnUCMin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUCMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUCMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnUCMin.Location = new System.Drawing.Point(0, 0);
+            this.btnUCMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
+            this.btnUCMin.Location = new System.Drawing.Point(6, 5);
             this.btnUCMin.Margin = new System.Windows.Forms.Padding(0);
             this.btnUCMin.Name = "btnUCMin";
-            this.btnUCMin.Size = new System.Drawing.Size(16, 19);
+            this.btnUCMin.Size = new System.Drawing.Size(18, 62);
             this.btnUCMin.TabIndex = 90;
             this.btnUCMin.Text = "<";
             this.btnUCMin.UseVisualStyleBackColor = false;
@@ -137,21 +165,8 @@
             this.SwapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SwapPanel.Location = new System.Drawing.Point(0, 71);
             this.SwapPanel.Name = "SwapPanel";
-            this.SwapPanel.Size = new System.Drawing.Size(884, 518);
+            this.SwapPanel.Size = new System.Drawing.Size(890, 518);
             this.SwapPanel.TabIndex = 1;
-            // 
-            // lblFooter
-            // 
-            this.lblFooter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(94)))), ((int)(((byte)(81)))));
-            this.lblFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblFooter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(179)))), ((int)(((byte)(160)))));
-            this.lblFooter.Location = new System.Drawing.Point(0, 592);
-            this.lblFooter.Name = "lblFooter";
-            this.lblFooter.Size = new System.Drawing.Size(884, 21);
-            this.lblFooter.TabIndex = 4;
-            this.lblFooter.Text = ". . .";
             // 
             // frmMain
             // 
@@ -180,5 +195,6 @@
         private System.Windows.Forms.Label lblIcon;
         private System.Windows.Forms.Label lblFooter;
         private System.Windows.Forms.Button btnUCMin;
+        private System.Windows.Forms.Label lblFooterDate;
     }
 }

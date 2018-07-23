@@ -11,20 +11,12 @@ using LastFMBrowser.Interfaces;
 
 namespace LastFMBrowser.Views
 {
-    public partial class ucEditProfile : UserControl, ISwapPanelSubForm
+    public partial class ucBrowseUsers : UserControl, ISwapPanelSubForm
     {
-
-        /********************************
-         * Constructor
-        ********************************/
-        public ucEditProfile()
+        public ucBrowseUsers()
         {
             InitializeComponent();
         }
-
-        /********************************
-         * Form Initialization
-        ********************************/
 
         public void RefreshUserControl()
         {
