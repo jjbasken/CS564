@@ -26,9 +26,9 @@ namespace LastFMBrowser.Views
         {
             LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
 
-            var artists = from artist in db.tblArtists
+            var artists = (from artist in db.tblArtists
                           where artist.ArtistName.Contains(textBox1.Text)
-                          select artist;
+                          select artist).Take(20);
 
             dataGridView1.DataSource = artists.ToList();
         }
@@ -47,7 +47,7 @@ namespace LastFMBrowser.Views
 
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            //if (e.KeyCode == Keys.Enter) Check on performance
                 artistSearch();
         }
 

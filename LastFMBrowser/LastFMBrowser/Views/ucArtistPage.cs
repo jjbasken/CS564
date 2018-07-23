@@ -21,6 +21,7 @@ namespace LastFMBrowser.Views
                 dataGridView1_Load(frmMain.ArtistID);
                 dataGridView2_Load(frmMain.ArtistID);
                 dataGridView3_Load(frmMain.ArtistID);
+                dataGridView4_Load(frmMain.ArtistID);
             }
         }
 
@@ -33,8 +34,6 @@ namespace LastFMBrowser.Views
         }
         private void dataGridView1_Load(long ArtistID)
         {
-            if (ArtistID != 0)
-            {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
 
                 var tracks = from track in db.tblTracks
@@ -43,7 +42,6 @@ namespace LastFMBrowser.Views
                              select track;
 
                 dataGridView1.DataSource = tracks.ToList();
-            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -53,8 +51,6 @@ namespace LastFMBrowser.Views
         }
         private void dataGridView2_Load(long ArtistID)
         {
-            if (ArtistID != 0)
-            {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
 
                 var tags = (from tag in db.lnkUserTagArtists
@@ -62,19 +58,15 @@ namespace LastFMBrowser.Views
                             where tag.ArtistID == ArtistID
                             //group tagInfo.tagValue by tag.tagID  into tagGroup
 
-                            select tagInfo).Distinct();
+                            select tagInfo).Distinct().Take(20);
 
 
                 dataGridView2.DataSource = tags.ToList();
-            }
         }
         private void dataGridView3_Load(long ArtistID)
         {
-            if (ArtistID != 0)
-            {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
                 dataGridView3.DataSource = db.GET_SIMILAR_ARTISTS(ArtistID);
-            }
         }
 
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -95,6 +87,26 @@ namespace LastFMBrowser.Views
                 UserControl mNewSub = (UserControl)Activator.CreateInstance(Type.GetType("LastFMBrowser.Views.ucArtistSearch"));
                 parentForm.SetSubForm((ISwapPanelSubForm)mNewSub);
             }
+        }
+        private void dataGridView4_Load(long ArtistID)
+        {
+            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+
+            var tags = (from tag in db.lnkUserTagArtists
+                        join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
+                        where tag.UserID == frmMain.User_ID
+                        //group tagInfo.tagValue by tag.tagID  into tagGroup
+
+                        select tagInfos).Distinct();
+
+
+            dataGridView4.DataSource = tags.ToList();
+        }
+
+        private void dataGridView4_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+            db.TAG_ARTIST(frmMain.User_ID, frmMain.ArtistID, dataGridView4.Rows[e.RowIndex].Cells[0].Value.ToString());
         }
     }
 }

@@ -28,6 +28,7 @@ namespace LastFMBrowser.Views
         public static String ArtistName = "";
         public static String BandURL = "";
         public static String BandPictureURL = "";
+        public static long User_ID = 1;
 
         /********************************
          * Form initialization
