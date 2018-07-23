@@ -24,7 +24,10 @@ namespace LastFMBrowser.Views
         public static ucMainMenu mMenu;
 
         //Properties
-        
+        public static long ArtistID = 0;
+        public static String ArtistName = "";
+        public static String BandURL = "";
+        public static String BandPictureURL = "";
 
         /********************************
          * Form initialization
@@ -114,7 +117,7 @@ namespace LastFMBrowser.Views
         ///     Actually handles the subform swap
         /// </summary>
         /// <param name="mSubForm"> The sub form you want to load into the SwapPanel </param>
-        private void SetSubForm(ISwapPanelSubForm mSubForm)
+        public void SetSubForm(ISwapPanelSubForm mSubForm)
         {
             Console.WriteLine("Setting the sub form");
             if (SwapPanel.Controls.Count > 0)

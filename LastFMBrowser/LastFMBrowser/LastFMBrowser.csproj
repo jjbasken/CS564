@@ -44,10 +44,21 @@
       <DependentUpon>LastFmModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.LastFMDataEntities.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.lnkUserArtist.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.lnkUserTagArtist.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.sysMenuList.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.tblArtist.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.tblTag.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.tblTrack.datasource" />
+    <None Include="Properties\DataSources\LastFMBrowser.Models.tblUser.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ctrlMain.cs" />
     <Compile Include="Interfaces\ISwapPanelSubForm.cs" />
+    <Compile Include="Models\GET_SIMILAR_ARTISTS_Result.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LastFmModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,6 +113,12 @@
     </Compile>
     <Compile Include="Views\ucArtistPage.Designer.cs">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucArtistSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucArtistSearch.Designer.cs">
+      <DependentUpon>ucArtistSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ucDashboard.cs">
       <SubType>UserControl</SubType>
@@ -162,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucArtistPage.resx">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucArtistSearch.resx">
+      <DependentUpon>ucArtistSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucDashboard.resx">
       <DependentUpon>ucDashboard.cs</DependentUpon>

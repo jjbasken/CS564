@@ -55,7 +55,7 @@
           <Key>
             <PropertyRef Name="tagID" />
           </Key>
-          <Property Name="tagID" Type="int" Nullable="false" />
+          <Property Name="tagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tagValue" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="tblTracks">
@@ -173,6 +173,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GET_SIMILAR_ARTISTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ArtistID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="TAG_ARTIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+          <Parameter Name="ARTIST" Type="bigint" Mode="In" />
+          <Parameter Name="TAGVALUE" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="LastFMDataModelStoreContainer">
           <EntitySet Name="lnkUserArtist" EntityType="Self.lnkUserArtist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lnkUserFriends" EntityType="Self.lnkUserFriends" Schema="dbo" store:Type="Tables" />
@@ -399,6 +407,14 @@
             <End Role="tblUsers1" EntitySet="tblUsers" />
           </AssociationSet>
           <EntitySet Name="sysMenuLists" EntityType="LastFMDataModel.sysMenuList" />
+          <FunctionImport Name="GET_SIMILAR_ARTISTS" ReturnType="Collection(LastFMDataModel.GET_SIMILAR_ARTISTS_Result)">
+            <Parameter Name="ArtistID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="TAG_ARTIST">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
+            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+            <Parameter Name="TAGVALUE" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="sysMenuList">
           <Key>
@@ -410,6 +426,11 @@
           <Property Name="Rank" Type="Int32" />
           <Property Name="isDefault" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="GET_SIMILAR_ARTISTS_Result">
+          <Property Type="Int64" Name="ArtistID" Nullable="false" />
+          <Property Type="String" Name="ArtistName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BandURL" Nullable="true" MaxLength="200" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -490,6 +511,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GET_SIMILAR_ARTISTS" FunctionName="LastFMDataModel.Store.GET_SIMILAR_ARTISTS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LastFMDataModel.GET_SIMILAR_ARTISTS_Result">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="ArtistName" ColumnName="ArtistName" />
+                <ScalarProperty Name="BandURL" ColumnName="BandURL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TAG_ARTIST" FunctionName="LastFMDataModel.Store.TAG_ARTIST" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
