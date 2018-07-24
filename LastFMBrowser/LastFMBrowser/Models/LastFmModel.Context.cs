@@ -90,5 +90,14 @@ namespace LastFMBrowser.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_ARTIST_LISTENERS_Result>("FIND_ARTIST_LISTENERS", uSERIDParameter, aRTISTParameter);
         }
+    
+        public virtual ObjectResult<FIND_TOP_TAGS_Result> FIND_TOP_TAGS(Nullable<long> aRTIST)
+        {
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_TOP_TAGS_Result>("FIND_TOP_TAGS", aRTISTParameter);
+        }
     }
 }

@@ -61,16 +61,7 @@ namespace LastFMBrowser.Views
         private void dataGridView2_Load(long ArtistID)
         {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-
-                var tags = (from tag in db.lnkUserTagArtists
-                            join tagInfo in db.tblTags on tag.TagID equals tagInfo.tagID
-                            where tag.ArtistID == ArtistID
-                            //group tagInfo.tagValue by tag.tagID  into tagGroup
-
-                            select tagInfo).Distinct().Take(20);
-
-
-                dataGridView2.DataSource = tags.ToList();
+                dataGridView2.DataSource = db.FIND_TOP_TAGS(ArtistID);
         }
         private void dataGridView3_Load(long ArtistID)
         {

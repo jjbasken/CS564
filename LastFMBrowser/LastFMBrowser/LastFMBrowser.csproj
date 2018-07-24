@@ -59,6 +59,9 @@
     <Compile Include="Models\FIND_ARTIST_LISTENERS_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FIND_TOP_TAGS_Result.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GET_SIMILAR_ARTISTS_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
