@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace LastFMBrowser.Views
 
         //Controles we are adding to the control pannel
         public static ucMainMenu mMenu;
-
+        
         //Properties
         public static long ArtistID = 0;
         public static String ArtistName = "";
@@ -46,8 +47,13 @@ namespace LastFMBrowser.Views
         {
             ClearPageFooter();
             LoadActiveSubForm();
+            SetFooterDate();
         }
 
+        private void SetFooterDate()
+        {
+            lblFooterDate.Text = "Launched " +  DateTime.Now.ToString("MMM-dd @ h:mm:ss tt", new CultureInfo("en-US")) + "  ";
+        }
 
         /********************************
          * Listen to events
@@ -89,7 +95,14 @@ namespace LastFMBrowser.Views
             lblTitle.Text = newTitle;
         }
 
-        
+        public int? GetActiveUser()
+        {
+            return 89; //User 89 very active in tagging artists, verified active in all user queries with the foloowing
+                       /*SELECT TOP 1 UserID, COUNT(UserID) AS countUserID FROM lnkUserArtist 
+                           WHERE UserID IN (SELECT UserID FROM lnkUserTagArtist) 
+                           AND UserID IN (SELECT UserID FROM lnkUserTagArtist) 
+                           GROUP BY UserID ORDER BY COUNT(UserID) DESC ;*/
+        }
 
         public void SetPageFooter(String newFooter)
         {
@@ -102,12 +115,12 @@ namespace LastFMBrowser.Views
         }
 
         /********************************
-         * Private helper Functions
+        * Private helper Functions
         ********************************/
 
-        /// <summary>
-        ///     Load default form
-        /// </summary>
+            /// <summary>
+            ///     Load default form
+            /// </summary>
         private void LoadSubForm()
         {
             //LoadDashboard();

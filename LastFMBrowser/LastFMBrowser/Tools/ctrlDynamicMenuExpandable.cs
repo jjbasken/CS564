@@ -347,15 +347,15 @@ namespace LastFMBrowser.Tools
         private void SetDefaultDesign()
         {
             BackColor = Color.FromArgb(255, 135, 138, 160);
-            ForeColor = Color.LightGoldenrodYellow;
+            ForeColor = Color.FromArgb(255, 255, 235, 200);
             Font = new Font(this.Font, FontStyle.Bold);
             FlatAppearance.MouseOverBackColor = Color.Peru;
         }
 
         private void SetSelectedDesign()
         {
-            BackColor = Color.FromArgb(255, 135, 138, 160);
-            ForeColor = Color.LightGoldenrodYellow;
+            BackColor = Color.FromArgb(255, 253, 252, 230); 
+            ForeColor = Color.FromArgb(255, 124, 38, 41);
             Font = new Font(this.Font, FontStyle.Bold);
             FlatAppearance.MouseOverBackColor = Color.Peru;
         }
