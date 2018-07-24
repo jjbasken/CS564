@@ -37,6 +37,13 @@
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ArtistHeader = new System.Windows.Forms.LinkLabel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.OtherUserGrid = new System.Windows.Forms.DataGridView();
+            this.userIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lnkUserArtistBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tagIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tagValueDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tblTagBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -50,13 +57,17 @@
             this.playCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.trackURLDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.tblUserBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OtherUserGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lnkUserArtistBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblTagBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblArtistBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblUserBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -70,18 +81,18 @@
             this.playCountDataGridViewTextBoxColumn,
             this.trackURLDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.bindingSource1;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 31);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 66);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(205, 358);
+            this.dataGridView1.Size = new System.Drawing.Size(296, 373);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 12);
+            this.label1.Location = new System.Drawing.Point(5, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 1;
@@ -90,7 +101,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(215, 184);
+            this.label2.Location = new System.Drawing.Point(318, 234);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 2;
@@ -105,7 +116,7 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tagValueDataGridViewTextBoxColumn});
             this.dataGridView2.DataSource = this.tblTagBindingSource;
-            this.dataGridView2.Location = new System.Drawing.Point(215, 200);
+            this.dataGridView2.Location = new System.Drawing.Point(321, 250);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
@@ -115,7 +126,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(325, 12);
+            this.label3.Location = new System.Drawing.Point(448, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 4;
@@ -133,49 +144,124 @@
             this.bandURLDataGridViewTextBoxColumn,
             this.bandPictureURLDataGridViewTextBoxColumn});
             this.dataGridView3.DataSource = this.tblArtistBindingSource;
-            this.dataGridView3.Location = new System.Drawing.Point(328, 31);
+            this.dataGridView3.Location = new System.Drawing.Point(451, 52);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
             this.dataGridView3.RowHeadersVisible = false;
-            this.dataGridView3.Size = new System.Drawing.Size(105, 358);
+            this.dataGridView3.Size = new System.Drawing.Size(105, 387);
             this.dataGridView3.TabIndex = 5;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
             // dataGridView4
             // 
+            this.dataGridView4.AllowUserToAddRows = false;
+            this.dataGridView4.AllowUserToDeleteRows = false;
             this.dataGridView4.AutoGenerateColumns = false;
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tagIDDataGridViewTextBoxColumn,
             this.tagValueDataGridViewTextBoxColumn1});
             this.dataGridView4.DataSource = this.tblTagBindingSource;
-            this.dataGridView4.Location = new System.Drawing.Point(216, 31);
+            this.dataGridView4.Location = new System.Drawing.Point(321, 76);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersVisible = false;
-            this.dataGridView4.Size = new System.Drawing.Size(106, 150);
+            this.dataGridView4.Size = new System.Drawing.Size(106, 155);
             this.dataGridView4.TabIndex = 6;
-            this.dataGridView4.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellLeave);
+            this.dataGridView4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.userTagKeyDown);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(218, 12);
+            this.label5.Location = new System.Drawing.Point(318, 36);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Your tags";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(321, 52);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(106, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Add Tag";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ArtistHeader
+            // 
+            this.ArtistHeader.AutoSize = true;
+            this.ArtistHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ArtistHeader.Location = new System.Drawing.Point(4, 15);
+            this.ArtistHeader.Name = "ArtistHeader";
+            this.ArtistHeader.Size = new System.Drawing.Size(90, 20);
+            this.ArtistHeader.TabIndex = 10;
+            this.ArtistHeader.TabStop = true;
+            this.ArtistHeader.Text = "linkLabel1";
+            this.ArtistHeader.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ArtistHeader_LinkClicked);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(8, 446);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Artist Search";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(572, 36);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(167, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Other users who listen to this artist";
+            // 
+            // OtherUserGrid
+            // 
+            this.OtherUserGrid.AllowUserToAddRows = false;
+            this.OtherUserGrid.AllowUserToDeleteRows = false;
+            this.OtherUserGrid.AutoGenerateColumns = false;
+            this.OtherUserGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.OtherUserGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.userIDDataGridViewTextBoxColumn});
+            this.OtherUserGrid.DataSource = this.lnkUserArtistBindingSource;
+            this.OtherUserGrid.Location = new System.Drawing.Point(575, 52);
+            this.OtherUserGrid.Name = "OtherUserGrid";
+            this.OtherUserGrid.ReadOnly = true;
+            this.OtherUserGrid.RowHeadersVisible = false;
+            this.OtherUserGrid.Size = new System.Drawing.Size(164, 303);
+            this.OtherUserGrid.TabIndex = 13;
+            // 
+            // userIDDataGridViewTextBoxColumn
+            // 
+            this.userIDDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.userIDDataGridViewTextBoxColumn.DataPropertyName = "UserID";
+            this.userIDDataGridViewTextBoxColumn.HeaderText = "UserID";
+            this.userIDDataGridViewTextBoxColumn.MinimumWidth = 100;
+            this.userIDDataGridViewTextBoxColumn.Name = "userIDDataGridViewTextBoxColumn";
+            this.userIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lnkUserArtistBindingSource
+            // 
+            this.lnkUserArtistBindingSource.DataSource = typeof(LastFMBrowser.Models.lnkUserArtist);
             // 
             // tagIDDataGridViewTextBoxColumn
             // 
             this.tagIDDataGridViewTextBoxColumn.DataPropertyName = "tagID";
             this.tagIDDataGridViewTextBoxColumn.HeaderText = "tagID";
             this.tagIDDataGridViewTextBoxColumn.Name = "tagIDDataGridViewTextBoxColumn";
+            this.tagIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.tagIDDataGridViewTextBoxColumn.Visible = false;
             // 
             // tagValueDataGridViewTextBoxColumn1
             // 
             this.tagValueDataGridViewTextBoxColumn1.DataPropertyName = "tagValue";
             this.tagValueDataGridViewTextBoxColumn1.HeaderText = "tagValue";
             this.tagValueDataGridViewTextBoxColumn1.Name = "tagValueDataGridViewTextBoxColumn1";
+            this.tagValueDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // tblTagBindingSource
             // 
@@ -225,10 +311,12 @@
             // 
             // trackTitleDataGridViewTextBoxColumn
             // 
+            this.trackTitleDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             this.trackTitleDataGridViewTextBoxColumn.DataPropertyName = "TrackTitle";
             this.trackTitleDataGridViewTextBoxColumn.HeaderText = "TrackTitle";
             this.trackTitleDataGridViewTextBoxColumn.Name = "trackTitleDataGridViewTextBoxColumn";
             this.trackTitleDataGridViewTextBoxColumn.ReadOnly = true;
+            this.trackTitleDataGridViewTextBoxColumn.Width = 5;
             // 
             // playCountDataGridViewTextBoxColumn
             // 
@@ -249,11 +337,20 @@
             // 
             this.bindingSource1.DataSource = typeof(LastFMBrowser.Models.tblTrack);
             // 
+            // tblUserBindingSource
+            // 
+            this.tblUserBindingSource.DataSource = typeof(LastFMBrowser.Models.tblUser);
+            // 
             // ucArtistPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
+            this.Controls.Add(this.OtherUserGrid);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.ArtistHeader);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dataGridView4);
             this.Controls.Add(this.dataGridView3);
@@ -269,9 +366,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OtherUserGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lnkUserArtistBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblTagBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblArtistBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblUserBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,9 +381,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn trackTitleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn playCountDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn trackURLDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView2;
@@ -298,7 +395,18 @@
         private System.Windows.Forms.BindingSource tblArtistBindingSource;
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn tagIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tagValueDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trackTitleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn playCountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trackURLDataGridViewTextBoxColumn;
+        private System.Windows.Forms.LinkLabel ArtistHeader;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView OtherUserGrid;
+        private System.Windows.Forms.BindingSource tblUserBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource lnkUserArtistBindingSource;
     }
 }

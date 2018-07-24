@@ -56,6 +56,9 @@
   <ItemGroup>
     <Compile Include="Controllers\ctrlMain.cs" />
     <Compile Include="Interfaces\ISwapPanelSubForm.cs" />
+    <Compile Include="Models\FIND_ARTIST_LISTENERS_Result.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GET_SIMILAR_ARTISTS_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
@@ -146,6 +149,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />

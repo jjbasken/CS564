@@ -173,8 +173,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="FIND_ARTIST_LISTENERS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+          <Parameter Name="ARTIST" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="GET_SIMILAR_ARTISTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ArtistID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="REMOVE_TAG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+          <Parameter Name="ARTIST" Type="bigint" Mode="In" />
+          <Parameter Name="TAGVALUE" Type="varchar" Mode="In" />
         </Function>
         <Function Name="TAG_ARTIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERID" Type="bigint" Mode="In" />
@@ -408,12 +417,21 @@
           </AssociationSet>
           <EntitySet Name="sysMenuLists" EntityType="LastFMDataModel.sysMenuList" />
           <FunctionImport Name="GET_SIMILAR_ARTISTS" ReturnType="Collection(LastFMDataModel.GET_SIMILAR_ARTISTS_Result)">
-            <Parameter Name="ArtistID" Mode="In" Type="Int64" />
+          <Parameter Name="ArtistID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="TAG_ARTIST">
             <Parameter Name="USERID" Mode="In" Type="Int64" />
             <Parameter Name="ARTIST" Mode="In" Type="Int64" />
             <Parameter Name="TAGVALUE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="REMOVE_TAG">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
+            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+            <Parameter Name="TAGVALUE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FIND_ARTIST_LISTENERS" ReturnType="Collection(LastFMDataModel.FIND_ARTIST_LISTENERS_Result)">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
+            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="sysMenuList">
@@ -430,6 +448,11 @@
           <Property Type="Int64" Name="ArtistID" Nullable="false" />
           <Property Type="String" Name="ArtistName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="BandURL" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="FIND_ARTIST_LISTENERS_Result">
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="Int64" Name="ArtistID" Nullable="false" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -521,6 +544,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="TAG_ARTIST" FunctionName="LastFMDataModel.Store.TAG_ARTIST" />
+          <FunctionImportMapping FunctionImportName="REMOVE_TAG" FunctionName="LastFMDataModel.Store.REMOVE_TAG" />
+          <FunctionImportMapping FunctionImportName="FIND_ARTIST_LISTENERS" FunctionName="LastFMDataModel.Store.FIND_ARTIST_LISTENERS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LastFMDataModel.FIND_ARTIST_LISTENERS_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

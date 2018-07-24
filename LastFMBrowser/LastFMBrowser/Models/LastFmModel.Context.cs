@@ -60,5 +60,35 @@ namespace LastFMBrowser.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TAG_ARTIST", uSERIDParameter, aRTISTParameter, tAGVALUEParameter);
         }
+    
+        public virtual int REMOVE_TAG(Nullable<long> uSERID, Nullable<long> aRTIST, string tAGVALUE)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            var tAGVALUEParameter = tAGVALUE != null ?
+                new ObjectParameter("TAGVALUE", tAGVALUE) :
+                new ObjectParameter("TAGVALUE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("REMOVE_TAG", uSERIDParameter, aRTISTParameter, tAGVALUEParameter);
+        }
+    
+        public virtual ObjectResult<FIND_ARTIST_LISTENERS_Result> FIND_ARTIST_LISTENERS(Nullable<long> uSERID, Nullable<long> aRTIST)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_ARTIST_LISTENERS_Result>("FIND_ARTIST_LISTENERS", uSERIDParameter, aRTISTParameter);
+        }
     }
 }

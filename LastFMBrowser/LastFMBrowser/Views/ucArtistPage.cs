@@ -22,7 +22,16 @@ namespace LastFMBrowser.Views
                 dataGridView2_Load(frmMain.ArtistID);
                 dataGridView3_Load(frmMain.ArtistID);
                 dataGridView4_Load(frmMain.ArtistID);
+                OtherUserGrid_Load(frmMain.ArtistID, frmMain.User_ID);
+                ArtistHeader.Text = frmMain.ArtistName;
             }
+
+        }
+
+        private void OtherUserGrid_Load(long artistID, long user_ID)
+        {
+            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+            OtherUserGrid.DataSource = db.FIND_ARTIST_LISTENERS(user_ID, artistID);
         }
 
         /// <summary>
@@ -30,7 +39,7 @@ namespace LastFMBrowser.Views
         /// </summary>
         public void RefreshUserControl()
         {
-            throw new NotImplementedException();
+            dataGridView4_Load(frmMain.ArtistID);
         }
         private void dataGridView1_Load(long ArtistID)
         {
@@ -94,19 +103,52 @@ namespace LastFMBrowser.Views
 
             var tags = (from tag in db.lnkUserTagArtists
                         join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
-                        where tag.UserID == frmMain.User_ID
-                        //group tagInfo.tagValue by tag.tagID  into tagGroup
-
-                        select tagInfos).Distinct();
+                        where tag.UserID == frmMain.User_ID && tag.ArtistID==frmMain.ArtistID
+                        group tagInfos by tagInfos.tagValue  into tagGroup
+                        select new
+                        {
+                            tagValue=tagGroup.Key,
+                            count = tagGroup.Count()
+                        }
+                        
+                        ).Distinct().OrderByDescending(x => x.count).Take(20);
 
 
             dataGridView4.DataSource = tags.ToList();
         }
 
-        private void dataGridView4_CellLeave(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter tag", "Add a tag", "", -1, -1);
             LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-            db.TAG_ARTIST(frmMain.User_ID, frmMain.ArtistID, dataGridView4.Rows[e.RowIndex].Cells[0].Value.ToString());
+            db.TAG_ARTIST(frmMain.User_ID, frmMain.ArtistID, input);
+            this.RefreshUserControl();
+        }
+
+        private void userTagKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.Delete)
+            {
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                db.REMOVE_TAG(frmMain.User_ID, frmMain.ArtistID, dataGridView4.SelectedCells[0].Value.ToString());
+                this.RefreshUserControl();
+            }
+        }
+
+        private void ArtistHeader_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(frmMain.BandURL);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmMain.ArtistID = 0;
+            Panel parentForm = (this.Parent as Panel);
+            LastFMBrowser.Views.ucArtistSearch artistSearch = new ucArtistSearch();
+            artistSearch.Dock = DockStyle.Fill;
+            artistSearch.Show();
+            parentForm.Controls.Add(artistSearch);
+            artistSearch.BringToFront();
         }
     }
 }

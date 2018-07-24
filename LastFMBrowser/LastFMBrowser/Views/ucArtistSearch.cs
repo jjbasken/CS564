@@ -36,6 +36,7 @@ namespace LastFMBrowser.Views
         {
             frmMain.ArtistID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
             frmMain.ArtistName = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            frmMain.BandURL = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
             this.Hide();
             Panel parentForm = (this.Parent as Panel);
             LastFMBrowser.Views.ucArtistPage artistPage = new ucArtistPage();
@@ -47,8 +48,7 @@ namespace LastFMBrowser.Views
 
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.KeyCode == Keys.Enter) Check on performance
-                artistSearch();
+                 artistSearch();
         }
 
         public void RefreshUserControl()
