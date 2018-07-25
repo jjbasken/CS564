@@ -55,9 +55,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(28, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.Size = new System.Drawing.Size(150, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Enter tag search:";
+            this.label1.Text = "Enter tag search and hit enter:";
             // 
             // btnSearch
             // 
@@ -84,7 +84,7 @@
             this.dgArtists.Location = new System.Drawing.Point(28, 55);
             this.dgArtists.Name = "dgArtists";
             this.dgArtists.ReadOnly = true;
-            this.dgArtists.Size = new System.Drawing.Size(240, 279);
+            this.dgArtists.Size = new System.Drawing.Size(240, 427);
             this.dgArtists.TabIndex = 3;
             this.dgArtists.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -132,7 +132,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSearchField);
             this.Name = "ucTagSearch";
-            this.Size = new System.Drawing.Size(384, 349);
+            this.Size = new System.Drawing.Size(384, 485);
             ((System.ComponentModel.ISupportInitialize)(this.dgArtists)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblArtistBindingSource)).EndInit();
             this.ResumeLayout(false);

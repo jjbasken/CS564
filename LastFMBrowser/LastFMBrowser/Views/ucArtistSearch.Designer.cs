@@ -84,7 +84,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(28, 55);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 279);
+            this.dataGridView1.Size = new System.Drawing.Size(240, 418);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -132,7 +132,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Name = "ucArtistSearch";
-            this.Size = new System.Drawing.Size(384, 349);
+            this.Size = new System.Drawing.Size(384, 495);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblArtistBindingSource)).EndInit();
             this.ResumeLayout(false);
