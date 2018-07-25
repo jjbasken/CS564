@@ -177,6 +177,9 @@
           <Parameter Name="USERID" Type="bigint" Mode="In" />
           <Parameter Name="ARTIST" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="FIND_ARTISTS_WITH_TAG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TAG" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="FIND_TOP_TAGS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ARTIST" Type="bigint" Mode="In" />
         </Function>
@@ -437,7 +440,10 @@
             <Parameter Name="ARTIST" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="FIND_TOP_TAGS" ReturnType="Collection(LastFMDataModel.FIND_TOP_TAGS_Result)">
-            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+          <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="FIND_ARTISTS_WITH_TAG" ReturnType="Collection(LastFMDataModel.FIND_ARTISTS_WITH_TAG_Result)">
+            <Parameter Name="TAG" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="sysMenuList">
@@ -462,6 +468,12 @@
         </ComplexType>
         <ComplexType Name="FIND_TOP_TAGS_Result">
           <Property Type="Int32" Name="tagID" Nullable="false" />
+          <Property Type="String" Name="tagValue" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="FIND_ARTISTS_WITH_TAG_Result">
+          <Property Type="Int64" Name="ArtistID" Nullable="false" />
+          <Property Type="String" Name="ArtistName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="BandURL" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="tagValue" Nullable="false" MaxLength="200" />
         </ComplexType>
       </Schema>
@@ -568,6 +580,16 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="LastFMDataModel.FIND_TOP_TAGS_Result">
                 <ScalarProperty Name="tagID" ColumnName="tagID" />
+                <ScalarProperty Name="tagValue" ColumnName="tagValue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FIND_ARTISTS_WITH_TAG" FunctionName="LastFMDataModel.Store.FIND_ARTISTS_WITH_TAG">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LastFMDataModel.FIND_ARTISTS_WITH_TAG_Result">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="ArtistName" ColumnName="ArtistName" />
+                <ScalarProperty Name="BandURL" ColumnName="BandURL" />
                 <ScalarProperty Name="tagValue" ColumnName="tagValue" />
               </ComplexTypeMapping>
             </ResultMapping>

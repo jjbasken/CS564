@@ -56,6 +56,9 @@
   <ItemGroup>
     <Compile Include="Controllers\ctrlMain.cs" />
     <Compile Include="Interfaces\ISwapPanelSubForm.cs" />
+    <Compile Include="Models\FIND_ARTISTS_WITH_TAG_Result.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FIND_ARTIST_LISTENERS_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
@@ -119,6 +122,12 @@
     </Compile>
     <Compile Include="Views\ucArtistPage.Designer.cs">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ucTagSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucTagSearch.Designer.cs">
+      <DependentUpon>ucTagSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ucArtistSearch.cs">
       <SubType>UserControl</SubType>
@@ -205,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucArtistPage.resx">
       <DependentUpon>ucArtistPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ucTagSearch.resx">
+      <DependentUpon>ucTagSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucArtistSearch.resx">
       <DependentUpon>ucArtistSearch.cs</DependentUpon>
