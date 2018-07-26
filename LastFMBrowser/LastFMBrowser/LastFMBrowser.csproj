@@ -56,6 +56,9 @@
   <ItemGroup>
     <Compile Include="Controllers\ctrlMain.cs" />
     <Compile Include="Interfaces\ISwapPanelSubForm.cs" />
+    <Compile Include="Models\ARTIST_SEARCH_Result.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FIND_ARTISTS_WITH_TAG_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
@@ -63,6 +66,9 @@
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FIND_TOP_TAGS_Result.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FIND_TOP_TRACKS_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GET_SIMILAR_ARTISTS_Result.cs">

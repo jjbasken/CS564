@@ -25,12 +25,7 @@ namespace LastFMBrowser.Views
         private void artistSearch()
         {
             LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-
-            var artists = (from artist in db.tblArtists
-                          where artist.ArtistName.Contains(textBox1.Text)
-                          select artist).Take(20);
-
-            dataGridView1.DataSource = artists.ToList();
+            dataGridView1.DataSource = db.ARTIST_SEARCH(textBox1.Text);
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

@@ -44,14 +44,8 @@ namespace LastFMBrowser.Views
         }
         private void dgTopTracks_Load(long ArtistID)
         {
-                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-
-                var tracks = from track in db.tblTracks
-                             where track.ArtistID == ArtistID
-                             orderby track.PlayCount descending
-                             select track;
-
-                dgTopTracks.DataSource = tracks.ToList();
+            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+            dgTopTracks.DataSource = db.FIND_TOP_TRACKS(ArtistID);
         }
 
         private void dgTopTracks_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -93,29 +87,39 @@ namespace LastFMBrowser.Views
         }
         private void dgUserTags_Load(long ArtistID)
         {
-            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+            try
+            {
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
 
-            var tags = (from tag in db.lnkUserTagArtists
-                        join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
-                        where tag.UserID == frmMain.User_ID && tag.ArtistID==frmMain.ArtistID
-                        group tagInfos by tagInfos.tagValue  into tagGroup
-                        select new
-                        {
-                            tagValue=tagGroup.Key,
-                            count = tagGroup.Count()
-                        }
-                        
-                        ).Distinct().OrderByDescending(x => x.count).Take(20);
+                var tags = (from tag in db.lnkUserTagArtists
+                            join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
+                            where tag.UserID == frmMain.User_ID && tag.ArtistID == frmMain.ArtistID
+                            group tagInfos by tagInfos.tagValue into tagGroup
+                            select new
+                            {
+                                tagValue = tagGroup.Key,
+                                count = tagGroup.Count()
+                            }
 
-
-            dgUserTags.DataSource = tags.ToList();
+                            ).Distinct().OrderByDescending(x => x.count).Take(20);
+                dgUserTags.DataSource = tags.ToList();
+            }catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void btnAddTag_Click(object sender, EventArgs e)
         {
-            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter tag", "Add a tag", "", -1, -1);
+            try
+            {
+                string input = Microsoft.VisualBasic.Interaction.InputBox("Enter tag", "Add a tag", "", -1, -1);
             LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
             db.TAG_ARTIST(frmMain.User_ID, frmMain.ArtistID, input);
+            } catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
             this.RefreshUserControl();
         }
 
