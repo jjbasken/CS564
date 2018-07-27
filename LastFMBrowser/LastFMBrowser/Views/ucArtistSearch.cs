@@ -24,14 +24,27 @@ namespace LastFMBrowser.Views
 
         private void artistSearch()
         {
-            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-            dataGridView1.DataSource = db.ARTIST_SEARCH(textBox1.Text);
+            try
+            {
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                dataGridView1.DataSource = db.ARTIST_SEARCH(textBox1.Text);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            frmMain.ArtistID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-            frmMain.ArtistName = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            frmMain.BandURL = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            try
+            {
+                frmMain.ArtistID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                frmMain.ArtistName = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                frmMain.BandURL = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            }catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
             this.Hide();
             Panel parentForm = (this.Parent as Panel);
             LastFMBrowser.Views.ucArtistPage artistPage = new ucArtistPage();

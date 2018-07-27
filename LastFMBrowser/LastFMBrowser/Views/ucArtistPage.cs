@@ -60,8 +60,15 @@ namespace LastFMBrowser.Views
         }
         private void dgSimilarArtists_Load(long ArtistID)
         {
+            try
+            {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
                 dgSimilarArtists.DataSource = db.GET_SIMILAR_ARTISTS(ArtistID);
+                }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void dgSimilarArtists_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -92,18 +99,19 @@ namespace LastFMBrowser.Views
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
 
                 var tags = (from tag in db.lnkUserTagArtists
-                            join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
-                            where tag.UserID == frmMain.User_ID && tag.ArtistID == frmMain.ArtistID
-                            group tagInfos by tagInfos.tagValue into tagGroup
-                            select new
-                            {
-                                tagValue = tagGroup.Key,
-                                count = tagGroup.Count()
-                            }
+                             join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
+                             where tag.UserID == frmMain.User_ID && tag.ArtistID == frmMain.ArtistID
+                             group tagInfos by tagInfos.tagValue into tagGroup
+                             select new
+                             {
+                                 tagValue = tagGroup.Key,
+                                 count = tagGroup.Count()
+                             }
 
-                            ).Distinct().OrderByDescending(x => x.count).Take(20);
-                dgUserTags.DataSource = tags.ToList();
-            }catch(Exception e)
+                             ).Distinct().OrderByDescending(x => x.count).Take(20);
+                 dgUserTags.DataSource = tags.ToList();
+             }
+            catch(Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -127,9 +135,16 @@ namespace LastFMBrowser.Views
         {
             if(e.KeyCode==Keys.Delete)
             {
-                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                try
+                {
+                    LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
                 db.REMOVE_TAG(frmMain.User_ID, frmMain.ArtistID, dgUserTags.SelectedCells[0].Value.ToString());
                 this.RefreshUserControl();
+                }
+                catch (Exception e_userTagKeyDown)
+                {
+                    MessageBox.Show(e_userTagKeyDown.Message);
+                }
             }
         }
 
@@ -161,7 +176,14 @@ namespace LastFMBrowser.Views
 
         private void dgTopTags_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            runTagSearch(dgTopTags.SelectedCells[0].Value.ToString());
+            try
+            {
+                runTagSearch(dgTopTags.SelectedCells[0].Value.ToString());
+            }
+            catch (Exception e_dgTopTags_CellContentClick)
+            {
+                MessageBox.Show(e_dgTopTags_CellContentClick.Message);
+            }
         }
         private void runTagSearch(String tag)
         {
@@ -175,7 +197,13 @@ namespace LastFMBrowser.Views
 
         private void dgUserTags_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            runTagSearch(dgUserTags.SelectedCells[0].Value.ToString());
+            try
+            {
+                runTagSearch(dgUserTags.SelectedCells[0].Value.ToString());
+            } catch (Exception e_dgUserTagsClick)
+            {
+                MessageBox.Show(e_dgUserTagsClick.Message);
+            }
         }
     }
 }

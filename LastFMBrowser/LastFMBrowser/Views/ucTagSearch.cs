@@ -29,26 +29,48 @@ namespace LastFMBrowser.Views
 
         private void tagSearch()
         {
-            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-            dgArtists.DataSource = db.FIND_ARTISTS_WITH_TAG(txtSearchField.Text);
+            try
+            {
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                dgArtists.DataSource = db.FIND_ARTISTS_WITH_TAG(txtSearchField.Text);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
         private void tagSearch(String tag)
         {
-            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-            dgArtists.DataSource = db.FIND_ARTISTS_WITH_TAG(tag);
+            try
+            {
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                dgArtists.DataSource = db.FIND_ARTISTS_WITH_TAG(tag);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            frmMain.ArtistID = Convert.ToInt32(dgArtists.Rows[e.RowIndex].Cells[0].Value.ToString());
-            frmMain.ArtistName = dgArtists.Rows[e.RowIndex].Cells[1].Value.ToString();
-            frmMain.BandURL = dgArtists.Rows[e.RowIndex].Cells[2].Value.ToString();
-            this.Hide();
-            Panel parentForm = (this.Parent as Panel);
-            LastFMBrowser.Views.ucArtistPage artistPage = new ucArtistPage();
-            artistPage.Dock = DockStyle.Fill;
-            artistPage.Show();
-            parentForm.Controls.Add(artistPage);
-            artistPage.BringToFront();
+            try
+            {
+
+                frmMain.ArtistID = Convert.ToInt32(dgArtists.Rows[e.RowIndex].Cells[0].Value.ToString());
+                frmMain.ArtistName = dgArtists.Rows[e.RowIndex].Cells[1].Value.ToString();
+                frmMain.BandURL = dgArtists.Rows[e.RowIndex].Cells[2].Value.ToString();
+                this.Hide();
+                Panel parentForm = (this.Parent as Panel);
+                LastFMBrowser.Views.ucArtistPage artistPage = new ucArtistPage();
+                artistPage.Dock = DockStyle.Fill;
+                artistPage.Show();
+                parentForm.Controls.Add(artistPage);
+                artistPage.BringToFront();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void tb_KeyDown(object sender, KeyEventArgs e)
