@@ -100,6 +100,33 @@ namespace LastFMBrowser.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_TOP_TAGS_Result>("FIND_TOP_TAGS", aRTISTParameter);
         }
     
+        public virtual ObjectResult<FIND_ARTISTS_WITH_TAG_Result> FIND_ARTISTS_WITH_TAG(string tAG)
+        {
+            var tAGParameter = tAG != null ?
+                new ObjectParameter("TAG", tAG) :
+                new ObjectParameter("TAG", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_ARTISTS_WITH_TAG_Result>("FIND_ARTISTS_WITH_TAG", tAGParameter);
+        }
+    
+        public virtual ObjectResult<ARTIST_SEARCH_Result> ARTIST_SEARCH(string sEARCHTERM)
+        {
+            var sEARCHTERMParameter = sEARCHTERM != null ?
+                new ObjectParameter("SEARCHTERM", sEARCHTERM) :
+                new ObjectParameter("SEARCHTERM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ARTIST_SEARCH_Result>("ARTIST_SEARCH", sEARCHTERMParameter);
+        }
+    
+        public virtual ObjectResult<FIND_TOP_TRACKS_Result> FIND_TOP_TRACKS(Nullable<long> aRTIST)
+        {
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_TOP_TRACKS_Result>("FIND_TOP_TRACKS", aRTISTParameter);
+        }
+    
         public virtual ObjectResult<string> FIND_USER_NAME(Nullable<long> uSERID)
         {
             var uSERIDParameter = uSERID.HasValue ?
@@ -107,6 +134,19 @@ namespace LastFMBrowser.Models
                 new ObjectParameter("USERID", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("FIND_USER_NAME", uSERIDParameter);
+        }
+    
+        public virtual ObjectResult<string> FIND_USER_ARTIST_TAGS(Nullable<long> uSERID, Nullable<long> aRTIST)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("FIND_USER_ARTIST_TAGS", uSERIDParameter, aRTISTParameter);
         }
     }
 }

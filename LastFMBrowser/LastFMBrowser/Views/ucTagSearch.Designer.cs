@@ -1,6 +1,6 @@
 ﻿namespace LastFMBrowser.Views
 {
-    partial class ucArtistSearch
+    partial class ucTagSearch
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,64 +29,64 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearchField = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.dgArtists = new System.Windows.Forms.DataGridView();
             this.artistIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.artistNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bandURLDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bandPictureURLDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tblArtistBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgArtists)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblArtistBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtSearchField
             // 
-            this.textBox1.Location = new System.Drawing.Point(28, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(151, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
+            this.txtSearchField.Location = new System.Drawing.Point(28, 28);
+            this.txtSearchField.Name = "txtSearchField";
+            this.txtSearchField.Size = new System.Drawing.Size(151, 20);
+            this.txtSearchField.TabIndex = 0;
+            this.txtSearchField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(28, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 13);
+            this.label1.Size = new System.Drawing.Size(150, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Enter artist name:";
+            this.label1.Text = "Enter tag search and hit enter:";
             // 
-            // button1
+            // btnSearch
             // 
-            this.button1.Location = new System.Drawing.Point(186, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 20);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSearch.Location = new System.Drawing.Point(186, 28);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 20);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridView1
+            // dgArtists
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgArtists.AllowUserToAddRows = false;
+            this.dgArtists.AllowUserToDeleteRows = false;
+            this.dgArtists.AutoGenerateColumns = false;
+            this.dgArtists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgArtists.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.artistIDDataGridViewTextBoxColumn,
             this.artistNameDataGridViewTextBoxColumn,
             this.bandURLDataGridViewTextBoxColumn,
             this.bandPictureURLDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.tblArtistBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(28, 55);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 418);
-            this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dgArtists.DataSource = this.tblArtistBindingSource;
+            this.dgArtists.Location = new System.Drawing.Point(28, 55);
+            this.dgArtists.Name = "dgArtists";
+            this.dgArtists.ReadOnly = true;
+            this.dgArtists.Size = new System.Drawing.Size(240, 427);
+            this.dgArtists.TabIndex = 3;
+            this.dgArtists.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // artistIDDataGridViewTextBoxColumn
             // 
@@ -123,17 +123,17 @@
             // 
             this.tblArtistBindingSource.DataSource = typeof(LastFMBrowser.Models.tblArtist);
             // 
-            // ucArtistSearch
+            // ucTagSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dgArtists);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Name = "ucArtistSearch";
-            this.Size = new System.Drawing.Size(384, 495);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Controls.Add(this.txtSearchField);
+            this.Name = "ucTagSearch";
+            this.Size = new System.Drawing.Size(384, 485);
+            ((System.ComponentModel.ISupportInitialize)(this.dgArtists)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblArtistBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -142,10 +142,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearchField;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DataGridView dgArtists;
         private System.Windows.Forms.DataGridViewTextBoxColumn artistIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn artistNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn bandURLDataGridViewTextBoxColumn;
