@@ -58,9 +58,8 @@ namespace LastFMBrowser.Views
         //                                                     "WHERE UserID = {0} AND A.ArtistID = L.ArtistID);";
 
 
-        public const string QRY_03_ALL_USERS_ARTISTS_COUNT = "SELECT Count(ArtistName) AS CountOfArtistName " +
-                                                             "FROM tblArtist AS A3 WHERE EXISTS " + 
-                                                            "( SELECT Qry.ArtistName FROM {0} AS Qry WHERE A2.ArtistID = A3.ArtistID)";
+        public const string QRY_03_ALL_USERS_ARTISTS_COUNT = "SELECT Count(ArtistName) AS CountOfArtistName FROM" +
+                                                            "({0}) AS Qry";
 
         /* This was working directly in SSMS
          * SELECT Count(ArtistName) AS CountOfArtistName 
