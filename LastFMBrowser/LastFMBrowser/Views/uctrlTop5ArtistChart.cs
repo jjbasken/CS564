@@ -92,10 +92,22 @@ namespace LastFMBrowser.Views
             mChart.Series.Add("Series1");
             mChart.Series["Series1"].ChartArea = "ChartArea1";
             mChart.Series["Series1"].ChartType = SeriesChartType.Pie;
+            //mChart.Series["Series1"]["PieLabelStyle"] = "Outside";
+            //mChart.Series["Series1"]["LabelStyle"] = "Center";
+            //mChart.Series["Series1"].Font = new System.Drawing.Font("Arial", 12);
             
-            foreach(Tuple<string, int?> dataPoint in SQLList)
+ 
+
+            //mChart.Titles.Add("Your Top 5 Played Artists");
+            //mChart.BorderlineColor = Color.FromArgb(255, 108, 41, 41);
+
+            int i = 0;
+            foreach (Tuple<string, int?> dataPoint in SQLList)
             {
-                mChart.Series["Series1"].Points.AddXY(dataPoint.Item1, dataPoint.Item2);
+                mChart.Series["Series1"].Points.AddXY(dataPoint.Item2 + "", (double) dataPoint.Item2);
+                mChart.Series["Series1"].Points[i].LegendText = dataPoint.Item1;
+
+                i++;
             }
             /*NOTE: I need to bring in a list containing a small class with user name and 
 
@@ -112,6 +124,16 @@ namespace LastFMBrowser.Views
             //mChart.Series["Series1"].Points.AddXY("Failed", CallFailure);
             //mChart.Series["Series1"].Points[1].AxisLabel = "Failed\n" + CallFailure.ToString();
             //mChart.Series["Series1"].Points[1].LabelForeColor = Color.Orange;
+        }
+
+        private void chrtTop5Pie_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uctrlTop5ArtistChart_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

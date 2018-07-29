@@ -38,8 +38,13 @@
             // chrtTop5Pie
             // 
             this.chrtTop5Pie.BackColor = System.Drawing.Color.Transparent;
+            this.chrtTop5Pie.BorderlineColor = System.Drawing.Color.Maroon;
+            this.chrtTop5Pie.BorderSkin.BorderColor = System.Drawing.Color.Maroon;
             chartArea1.Name = "ChartArea1";
             this.chrtTop5Pie.ChartAreas.Add(chartArea1);
+            this.chrtTop5Pie.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend1.IsDockedInsideChartArea = false;
             legend1.Name = "Legend1";
             this.chrtTop5Pie.Legends.Add(legend1);
             this.chrtTop5Pie.Location = new System.Drawing.Point(0, 0);
@@ -49,18 +54,21 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chrtTop5Pie.Series.Add(series1);
-            this.chrtTop5Pie.Size = new System.Drawing.Size(239, 160);
+            this.chrtTop5Pie.Size = new System.Drawing.Size(230, 152);
             this.chrtTop5Pie.TabIndex = 0;
             this.chrtTop5Pie.Text = "chart1";
+            this.chrtTop5Pie.Click += new System.EventHandler(this.chrtTop5Pie_Click);
             // 
             // uctrlTop5ArtistChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.chrtTop5Pie);
             this.Name = "uctrlTop5ArtistChart";
-            this.Size = new System.Drawing.Size(240, 162);
+            this.Size = new System.Drawing.Size(230, 152);
+            this.Load += new System.EventHandler(this.uctrlTop5ArtistChart_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chrtTop5Pie)).EndInit();
             this.ResumeLayout(false);
 

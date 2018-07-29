@@ -180,6 +180,9 @@
         <Function Name="FIND_TOP_TAGS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ARTIST" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="FIND_USER_NAME" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="GET_SIMILAR_ARTISTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ArtistID" Type="bigint" Mode="In" />
         </Function>
@@ -437,7 +440,10 @@
             <Parameter Name="ARTIST" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="FIND_TOP_TAGS" ReturnType="Collection(LastFMDataModel.FIND_TOP_TAGS_Result)">
-            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+          <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="FIND_USER_NAME" ReturnType="Collection(String)">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="sysMenuList">
@@ -572,6 +578,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FIND_USER_NAME" FunctionName="LastFMDataModel.Store.FIND_USER_NAME" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

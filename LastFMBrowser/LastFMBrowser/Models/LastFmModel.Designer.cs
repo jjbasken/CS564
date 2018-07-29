@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Jeremy\source\repos\LastFMBrowser-main\CS564\LastFMBrowser\LastFMBrowser\Models\LastFmModel.edmx'. 
+﻿// T4 code generation is enabled for model 'Z:\Documents\Z - Capstone\CS 564 - Databases\Final Project\LastFMBrowser\LastFMBrowser\Models\LastFmModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

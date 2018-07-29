@@ -97,7 +97,7 @@ namespace LastFMBrowser.Views
 
         public int? GetActiveUser()
         {
-            return 89; //User 89 very active in tagging artists, verified active in all user queries with the foloowing
+            return 89; //User 89 very active in tagging artists, verified active in all user queries with the folowing
                        /*SELECT TOP 1 UserID, COUNT(UserID) AS countUserID FROM lnkUserArtist 
                            WHERE UserID IN (SELECT UserID FROM lnkUserTagArtist) 
                            AND UserID IN (SELECT UserID FROM lnkUserTagArtist) 

@@ -99,5 +99,14 @@ namespace LastFMBrowser.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_TOP_TAGS_Result>("FIND_TOP_TAGS", aRTISTParameter);
         }
+    
+        public virtual ObjectResult<string> FIND_USER_NAME(Nullable<long> uSERID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("FIND_USER_NAME", uSERIDParameter);
+        }
     }
 }
