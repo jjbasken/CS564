@@ -38,7 +38,7 @@
     <None Include="App.config" />
     <EntityDeploy Include="Models\LastFmModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LastFmModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>LastFmModel1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="Models\LastFmModel.edmx.diagram">
       <DependentUpon>LastFmModel.edmx</DependentUpon>
@@ -89,10 +89,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LastFmModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LastFmModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LastFmModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\lnkUserArtist.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lnkUserTagArtist.cs">
+      <DependentUpon>LastFmModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spFIND_ARTIST_DETAIL_Result.cs">
       <DependentUpon>LastFmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysMenuList.cs">
@@ -122,6 +130,12 @@
     </Compile>
     <Compile Include="Views\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmSelectTag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmSelectTag.Designer.cs">
+      <DependentUpon>frmSelectTag.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ucArtistPage.cs">
       <SubType>UserControl</SubType>
@@ -217,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmSelectTag.resx">
+      <DependentUpon>frmSelectTag.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ucArtistPage.resx">
       <DependentUpon>ucArtistPage.cs</DependentUpon>

@@ -44,6 +44,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnRemoveTag = new System.Windows.Forms.Button();
+            this.btnAddTag = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // panelMyTopFivePie
@@ -53,20 +59,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelMyTopFivePie.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
             this.panelMyTopFivePie.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelMyTopFivePie.Location = new System.Drawing.Point(289, 69);
+            this.panelMyTopFivePie.Location = new System.Drawing.Point(289, 72);
             this.panelMyTopFivePie.Name = "panelMyTopFivePie";
-            this.panelMyTopFivePie.Size = new System.Drawing.Size(276, 436);
+            this.panelMyTopFivePie.Size = new System.Drawing.Size(276, 433);
             this.panelMyTopFivePie.TabIndex = 8;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.label7.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label7.Font = new System.Drawing.Font("Modern No. 20", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.OldLace;
+            this.label7.ForeColor = System.Drawing.Color.Cornsilk;
             this.label7.Location = new System.Drawing.Point(15, 8);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(564, 28);
@@ -77,11 +83,11 @@
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label8.BackColor = System.Drawing.Color.Navy;
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label8.Font = new System.Drawing.Font("Modern No. 20", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label8.ForeColor = System.Drawing.Color.Lavender;
             this.label8.Location = new System.Drawing.Point(595, 8);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(276, 28);
@@ -93,6 +99,7 @@
             // 
             this.lstMyArtists.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstMyArtists.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
             this.lstMyArtists.FormattingEnabled = true;
             this.lstMyArtists.Location = new System.Drawing.Point(24, 72);
             this.lstMyArtists.Name = "lstMyArtists";
@@ -100,10 +107,13 @@
             this.lstMyArtists.TabIndex = 11;
             this.lstMyArtists.Click += new System.EventHandler(this.lstMyArtists_Click);
             this.lstMyArtists.DoubleClick += new System.EventHandler(this.lstMyArtists_DoubleClick);
+            this.lstMyArtists.MouseEnter += new System.EventHandler(this.lstMyArtists_MouseEnter);
+            this.lstMyArtists.MouseLeave += new System.EventHandler(this.lstMyArtists_MouseLeave);
             // 
             // txtSearchArtists
             // 
             this.txtSearchArtists.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtSearchArtists.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
             this.txtSearchArtists.Location = new System.Drawing.Point(87, 317);
             this.txtSearchArtists.Name = "txtSearchArtists";
             this.txtSearchArtists.Size = new System.Drawing.Size(185, 20);
@@ -119,7 +129,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.BackColor = System.Drawing.Color.Linen;
             this.label9.Location = new System.Drawing.Point(21, 320);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 13);
@@ -128,9 +138,10 @@
             // 
             // lblArtistListHeader
             // 
+            this.lblArtistListHeader.BackColor = System.Drawing.Color.Linen;
             this.lblArtistListHeader.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblArtistListHeader.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblArtistListHeader.ForeColor = System.Drawing.Color.Goldenrod;
+            this.lblArtistListHeader.ForeColor = System.Drawing.Color.Navy;
             this.lblArtistListHeader.Location = new System.Drawing.Point(21, 45);
             this.lblArtistListHeader.Name = "lblArtistListHeader";
             this.lblArtistListHeader.Size = new System.Drawing.Size(184, 24);
@@ -140,9 +151,11 @@
             // 
             // label10
             // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.BackColor = System.Drawing.Color.Linen;
             this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label10.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Goldenrod;
+            this.label10.ForeColor = System.Drawing.Color.Navy;
             this.label10.Location = new System.Drawing.Point(24, 356);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(248, 24);
@@ -152,8 +165,8 @@
             // 
             // lstMyTags
             // 
-            this.lstMyTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstMyTags.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstMyTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
             this.lstMyTags.FormattingEnabled = true;
             this.lstMyTags.Location = new System.Drawing.Point(24, 383);
             this.lstMyTags.Name = "lstMyTags";
@@ -162,12 +175,13 @@
             // 
             // label4
             // 
+            this.label4.BackColor = System.Drawing.Color.Linen;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label4.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Goldenrod;
-            this.label4.Location = new System.Drawing.Point(289, 49);
+            this.label4.ForeColor = System.Drawing.Color.Navy;
+            this.label4.Location = new System.Drawing.Point(289, 45);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(276, 20);
+            this.label4.Size = new System.Drawing.Size(276, 24);
             this.label4.TabIndex = 19;
             this.label4.Text = "My Top 5 Artists";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -177,7 +191,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
+            this.label5.BackColor = System.Drawing.Color.Linen;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label5.Font = new System.Drawing.Font("Modern No. 20", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -192,11 +206,11 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(210)))), ((int)(((byte)(191)))));
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label6.Font = new System.Drawing.Font("Modern No. 20", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label6.Location = new System.Drawing.Point(595, 36);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(276, 475);
@@ -206,11 +220,11 @@
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Goldenrod;
-            this.label1.Location = new System.Drawing.Point(617, 45);
+            this.label1.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.label1.Location = new System.Drawing.Point(603, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(156, 24);
             this.label1.TabIndex = 22;
@@ -220,22 +234,103 @@
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Goldenrod;
-            this.label3.Location = new System.Drawing.Point(617, 274);
+            this.label3.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.label3.Location = new System.Drawing.Point(603, 274);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(211, 24);
             this.label3.TabIndex = 23;
             this.label3.Text = "Trending With Friends";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnRemoveTag
+            // 
+            this.btnRemoveTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRemoveTag.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnRemoveTag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveTag.ForeColor = System.Drawing.Color.Maroon;
+            this.btnRemoveTag.Location = new System.Drawing.Point(210, 361);
+            this.btnRemoveTag.Name = "btnRemoveTag";
+            this.btnRemoveTag.Size = new System.Drawing.Size(23, 20);
+            this.btnRemoveTag.TabIndex = 24;
+            this.btnRemoveTag.Text = "-";
+            this.btnRemoveTag.UseVisualStyleBackColor = true;
+            this.btnRemoveTag.MouseEnter += new System.EventHandler(this.btnRemoveTag_MouseEnter);
+            this.btnRemoveTag.MouseLeave += new System.EventHandler(this.btnRemoveTag_MouseLeave);
+            // 
+            // btnAddTag
+            // 
+            this.btnAddTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddTag.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnAddTag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddTag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnAddTag.Location = new System.Drawing.Point(239, 358);
+            this.btnAddTag.Name = "btnAddTag";
+            this.btnAddTag.Size = new System.Drawing.Size(33, 23);
+            this.btnAddTag.TabIndex = 25;
+            this.btnAddTag.Text = "+";
+            this.btnAddTag.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAddTag.UseVisualStyleBackColor = true;
+            this.btnAddTag.Click += new System.EventHandler(this.btnAddTag_Click);
+            this.btnAddTag.MouseEnter += new System.EventHandler(this.btnAddTag_MouseEnter);
+            this.btnAddTag.MouseLeave += new System.EventHandler(this.btnAddTag_MouseLeave);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.BackColor = System.Drawing.Color.Lavender;
+            this.textBox1.Location = new System.Drawing.Point(687, 235);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(171, 20);
+            this.textBox1.TabIndex = 27;
+            // 
+            // listBox1
+            // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox1.BackColor = System.Drawing.Color.Lavender;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(606, 72);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(252, 160);
+            this.listBox1.TabIndex = 26;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.label2.Location = new System.Drawing.Point(603, 238);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Search Friends";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.Lavender;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Location = new System.Drawing.Point(606, 301);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(252, 203);
+            this.panel1.TabIndex = 9;
+            // 
             // ucDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.btnAddTag);
+            this.Controls.Add(this.btnRemoveTag);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
@@ -275,5 +370,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnRemoveTag;
+        private System.Windows.Forms.Button btnAddTag;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

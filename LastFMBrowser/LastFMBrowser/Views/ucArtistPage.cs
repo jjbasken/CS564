@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LastFMBrowser.Interfaces;
 
+
 namespace LastFMBrowser.Views
 {
     public partial class ucArtistPage : UserControl, ISwapPanelSubForm
@@ -79,7 +80,7 @@ namespace LastFMBrowser.Views
             this.Hide();
             frmMain parentForm = (this.ParentForm as frmMain);
             UserControl mNewSub = (UserControl)Activator.CreateInstance(Type.GetType("LastFMBrowser.Views.ucArtistPage"));
-            parentForm.SetSubForm((ISwapPanelSubForm)mNewSub);
+            parentForm.ChangeSubForm((ISwapPanelSubForm) mNewSub);
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -89,8 +90,13 @@ namespace LastFMBrowser.Views
                 this.Hide();
                 frmMain parentForm = (this.ParentForm as frmMain);
                 UserControl mNewSub = (UserControl)Activator.CreateInstance(Type.GetType("LastFMBrowser.Views.ucArtistSearch"));
-                parentForm.SetSubForm((ISwapPanelSubForm)mNewSub);
+                parentForm.ChangeSubForm((ISwapPanelSubForm)mNewSub);
             }
+            else
+            {
+                ((frmMain)this.ParentForm).SetPageTitle("Artist Pages: " +  frmMain.ArtistName + "", false);
+            }
+
         }
         private void dgUserTags_Load(long ArtistID)
         {

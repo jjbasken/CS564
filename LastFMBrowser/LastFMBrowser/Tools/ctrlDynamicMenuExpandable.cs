@@ -11,7 +11,7 @@ namespace LastFMBrowser.Tools
 
         public delegate void dynMenuExpItemSelectionEventHandler(object sender, EventArgs e);
 
-
+        public const string QRY_05_TOP_FIVE_ARTISTS = "SELECT * FROM sysMenuList ORDER BY rank;";
         /*******************************
         * Constances
         *******************************/
@@ -76,7 +76,7 @@ namespace LastFMBrowser.Tools
             LastFMDataEntities context = new LastFMDataEntities();
             //Northwnd db = new Northwnd(@"c:\northwnd.mdf");
             IEnumerable<sysMenuList> results =
-                context.sysMenuLists.SqlQuery("SELECT * FROM sysMenuList ORDER BY rank;");
+                context.sysMenuLists.SqlQuery(QRY_05_TOP_FIVE_ARTISTS);
 
             foreach (var menuItem in results)
             {
@@ -158,16 +158,30 @@ namespace LastFMBrowser.Tools
             ResetSubMenus();
         }
 
-       
-
-        public String getSelectedSubFormName()
+        public void ClearSelected()
         {
-            return Selected.ucSubMenuName;
+            Selected = null;
+            foreach (MenuButton menuItem in MenuList)
+            {
+                menuItem.Checked = false;
+            }
+            RepaintMenu();
         }
 
-        public String GetSelectedBtnText()
+        public string getSelectedSubFormName()
         {
-            return Selected.ItemName;
+            if (Selected == null)
+                return "";
+            else
+                return Selected.ucSubMenuName;
+        }
+
+        public string GetSelectedBtnText()
+        {
+            if (Selected == null)
+                return "";
+            else
+                return Selected.ItemName;
         }
 
         //Returns the text on the button that is currently selected

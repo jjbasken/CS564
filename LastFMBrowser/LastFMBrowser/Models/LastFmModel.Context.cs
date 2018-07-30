@@ -127,15 +127,6 @@ namespace LastFMBrowser.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FIND_TOP_TRACKS_Result>("FIND_TOP_TRACKS", aRTISTParameter);
         }
     
-        public virtual ObjectResult<string> FIND_USER_NAME(Nullable<long> uSERID)
-        {
-            var uSERIDParameter = uSERID.HasValue ?
-                new ObjectParameter("USERID", uSERID) :
-                new ObjectParameter("USERID", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("FIND_USER_NAME", uSERIDParameter);
-        }
-    
         public virtual ObjectResult<string> FIND_USER_ARTIST_TAGS(Nullable<long> uSERID, Nullable<long> aRTIST)
         {
             var uSERIDParameter = uSERID.HasValue ?
@@ -147,6 +138,24 @@ namespace LastFMBrowser.Models
                 new ObjectParameter("ARTIST", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("FIND_USER_ARTIST_TAGS", uSERIDParameter, aRTISTParameter);
+        }
+    
+        public virtual ObjectResult<spFIND_ARTIST_DETAIL_Result> spFIND_ARTIST_DETAIL(Nullable<long> aRTIST_ID)
+        {
+            var aRTIST_IDParameter = aRTIST_ID.HasValue ?
+                new ObjectParameter("ARTIST_ID", aRTIST_ID) :
+                new ObjectParameter("ARTIST_ID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spFIND_ARTIST_DETAIL_Result>("spFIND_ARTIST_DETAIL", aRTIST_IDParameter);
+        }
+    
+        public virtual ObjectResult<string> spFIND_USER_NAME(Nullable<long> uSERID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spFIND_USER_NAME", uSERIDParameter);
         }
     }
 }

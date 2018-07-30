@@ -106,7 +106,10 @@ namespace AppEmaMonitor.Tools
         public string getUCName(){ return mMenu.getSelectedSubFormName();}
         public string GetSelectedButtonText() { return mMenu.GetSelectedBtnText();}
 
-
+        public void ClearMenuSelection()
+        {
+            mMenu.ClearSelected();
+        }
         /// <summary>
         ///     Sets initial pannel size at class instantiation to help figure out current size in action
         /// </summary>

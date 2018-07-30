@@ -30,59 +30,47 @@ namespace LastFMBrowser.Views
                                                        "WHERE UserID = {0} " +
                                                        "ORDER BY [Count] DESC;";
 
-        //TODO:
-        //I want to pull in count as well, but since I did this query as the exists qry I cant in here.
-        //Consider making this a join and qry 1 an exists.  Or just don't worry about exists
-        //Also, there are artists that are tagged by a user but that have not been played by them, so need to account for that
-        //public const string QRY_02_ALL_USER_ARTISTS = "SELECT ArtistName FROM tblArtist AS A WHERE EXISTS " +
-                                                      //"(SELECT UserID, ArtistID FROM lnkUserArtist AS L " +
-                                                      //"WHERE UserID = {0} AND A.ArtistID = L.ArtistID) " +
-                                                      //"AND ArtistName Like '%{1}%' " +
-                                                      //"ORDER BY ArtistName;";
 
-        public const string QRY_02_ALL_USER_ARTISTS_CORE =    "(SELECT(ArtistName + ' (' + trim(str(L.ArtistID)) + ')') AS ArtistName, L.ArtistID " +
+        public const string QRY_02_ALL_USER_ARTISTS_CORE = "(SELECT(ArtistName + ' (' + trim(str(L.ArtistID)) + ')') AS ArtistName, L.ArtistID " +
                                                          "FROM tblArtist AS A1 INNER JOIN lnkUserArtist AS L ON A1.ArtistID = L.ArtistID " +
                                                          "WHERE L.UserID = {0}  AND ArtistName Like '%{1}%' UNION " +
                                                          "SELECT ArtistName, A2.ArtistID FROM tblArtist AS A2 " +
                                                          "INNER JOIN lnkUserTagArtist AS L ON A2.ArtistID = L.ArtistID " +
-                                                         "WHERE L.UserID = {0}  AND ArtistName Like '%{1}%')";
+                                                         "WHERE L.UserID = {0}  AND ArtistName Like '%{1}%' " +
+                                                         "AND L.ArtistID NOT IN (SELECT ArtistID FROM lnkUserArtist WHERE UserID = L.UserID))";
 
         public const string QRY_02_ALL_USER_ARTISTS = QRY_02_ALL_USER_ARTISTS_CORE + " ORDER BY {2}";
-
-        //+
-        //                                             "AND ArtistName Like '%{1}%');";
-
-        //public const string QRY_03_ALL_USERS_ARTISTS_COUNT = "SELECT Count(ArtistName) AS CountOfArtistName " +
-        //                                                     "FROM tblArtist AS A WHERE EXISTS " +
-        //                                                     "(SELECT UserID, ArtistID FROM lnkUserArtist AS L " +
-        //                                                     "WHERE UserID = {0} AND A.ArtistID = L.ArtistID);";
-
 
         public const string QRY_03_ALL_USERS_ARTISTS_COUNT = "SELECT Count(ArtistName) AS CountOfArtistName FROM" +
                                                             "({0}) AS Qry";
 
-        /* This was working directly in SSMS
-         * SELECT Count(ArtistName) AS CountOfArtistName 
-FROM (
-		SELECT(ArtistName + ' (' + trim(str(L.ArtistID)) + ')') AS ArtistName, L.ArtistID FROM tblArtist AS A1 
-		INNER JOIN lnkUserArtist AS L ON A1.ArtistID = L.ArtistID 
-		WHERE L.UserID = 89  AND ArtistName Like '%%' 
-		UNION SELECT ArtistName, A2.ArtistID FROM tblArtist AS A2 
-		INNER JOIN lnkUserTagArtist AS L ON A2.ArtistID = L.ArtistID 
-		WHERE L.UserID = 89  AND ArtistName Like '%%'
-		) AS Qry */
 
         public const string QRY_04_ARTIST_TAGS = "SELECT TagValue FROM tblTags AS T WHERE " +
                                                  "EXISTS (SELECT UserID, ArtistID, TagID " +
                                                  "FROM lnkUserTagArtist AS L WHERE UserID = {0} AND L.TagID = T.TagID AND  " +
-                                                 "EXISTS (SELECT ArtistName FROM tblArtist AS A WHERE ArtistName = '{1}' " +
-                                                 " AND L.ArtistID = A.ArtistID));";
+                                                 "L.ArtistID = {1});";
 
-            
-            
-            //"SELECT TagValue FROM tblTags AS T WHERE " +
-            //                                     "EXISTS (SELECT UserID, ArtistID, TagID FROM lnkUserTagArtist AS L " +
-            //                                     "WHERE UserID = {0} AND ArtistID = {1} AND L.TagID = T.TagID);";
+
+        //In ctrlDynamicMenuExpandable
+        //public const string QRY_05_TOP_FIVE_ARTISTS = "SELECT * FROM sysMenuList ORDER BY rank;";
+
+
+        public const string QRY_06_USER_FRIENDS = "SELECT L.FriendID FROM dbo.lnkUserFriends AS L WHERE UserID = {0};";
+        /********************************
+         * Additional Queries and Stored Procedures can be found
+        ********************************/
+
+        
+
+
+        //public const StoredProcedure_01 = FIND_USER_NAME(UserID)
+        //public const StoredProcedure_02 = spFIND_ARTIST_DETAIL(ArtistID)
+
+        //"SELECT TagValue FROM tblTags AS T WHERE " +
+        //                                     "EXISTS (SELECT UserID, ArtistID, TagID FROM lnkUserTagArtist AS L " +
+        //                                     "WHERE UserID = {0} AND ArtistID = {1} AND L.TagID = T.TagID);";
+
+
         /********************************
          * Form Objects
         ********************************/
@@ -101,9 +89,7 @@ FROM (
             
         }
 
-        /********************************
-         * Form Initialization
-        *******************************/
+        
 
         private void ucDashboard_Load(object sender, EventArgs e)
         {
@@ -119,7 +105,7 @@ FROM (
             //Set title with query
             //GetActiveUser
             context = new LastFMDataEntities();
-            mParent.SetPageTitle(context.FIND_USER_NAME(mParent.GetActiveUser()).FirstOrDefault() + "");
+            mParent.SetPageTitle(context.spFIND_USER_NAME(mParent.GetActiveUser()).FirstOrDefault() + "");
             Console.WriteLine("About to load top five");
             LoadTopFivePie();
             Console.WriteLine("About to load Artist List");
@@ -127,6 +113,8 @@ FROM (
 
             
         }
+
+        
 
 
         /********************************
@@ -178,17 +166,23 @@ FROM (
 
         private void LoadArtistList()
         {
-            lstMyArtists.Items.Clear();
+            //lstMyArtists.Items.Clear();
             //LastFMDataEntities context = new LastFMDataEntities();
             Console.WriteLine("Expected SQL = " + String.Format(QRY_02_ALL_USER_ARTISTS, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName"));
             var results = context.Database.SqlQuery<QryResultNode>(String.Format(QRY_02_ALL_USER_ARTISTS, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName"));
 
 
+            Dictionary<long, string> listSource = new Dictionary<long, string>();
+
             foreach (var result in results)
             {
-                this.lstMyArtists.Items.Add(result.ArtistName);
+                Console.WriteLine(result.ArtistID + " - " + result.ArtistName);
+                listSource.Add(result.ArtistID, result.ArtistName);
             }
 
+            lstMyArtists.DataSource = new BindingSource(listSource, null);
+            lstMyArtists.DisplayMember = "Value";
+            lstMyArtists.ValueMember = "Key";
 
             if (lstMyArtists.Items.Count > 0) lstMyArtists.SelectedIndex = 0;
 
@@ -203,18 +197,7 @@ FROM (
             RefTagList();
         }
 
-        private void RefTagList()
-        {
-            Console.WriteLine("Refreshing tag list with artist id = " + lstMyArtists.SelectedItem);
-            Console.WriteLine("SQL = " + String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedItem));
-            var results = context.Database.SqlQuery<QryTagValue>(String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedItem));
-
-            lstMyTags.Items.Clear();
-            foreach (var result in results)
-            {
-                this.lstMyTags.Items.Add(result.TagValue);
-            }
-        }
+        
 
         /// <summary>
         ///     Set lblCount that shows the total number of artists being displayed
@@ -233,9 +216,124 @@ FROM (
 
             lblArtistListHeader.Text = "Artists I Play (" +  results.CountOfArtistName + " listed)";
         }
+
+        private void txtSearchArtists_TextChanged(object sender, EventArgs e)
+        {
+            LoadArtistList();
+            RefreshArtistAttributes();
+        }
+
+        /// <summary>
+        ///     Open up the artist form with the selected artist
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstMyArtists_DoubleClick(object sender, EventArgs e)
+        {
+            //I need a way to look up the artist
+            //Could either do a simple query based on name, or I could 
+            //
+
+            long mArtistID;
+
+
+            try
+            {
+                mArtistID = (long)lstMyArtists.SelectedValue;
+
+            }
+            catch (Exception E)
+            {
+                mArtistID = -1;
+                Console.WriteLine("Exception occured " + E.StackTrace);
+            }
+
+            var artistDetails = context.spFIND_ARTIST_DETAIL(mArtistID).FirstOrDefault();
+            Console.WriteLine(artistDetails);
+
+
+            try
+            {
+                frmMain.ArtistID = artistDetails.ArtistID;
+                frmMain.ArtistName = artistDetails.ArtistName;
+                frmMain.BandURL = artistDetails.BandURL;
+
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+
+            mParent.ChangeSubForm(new ucArtistPage());
+        }
+
+        private void lstMyArtists_Click(object sender, EventArgs e)
+        {
+            RefreshArtistAttributes();
+        }
+
+        private void lstMyArtists_MouseEnter(object sender, EventArgs e)
+        {
+            mParent.SetPageFooter("Double click to open up artist");
+        }
+
+        private void lstMyArtists_MouseLeave(object sender, EventArgs e)
+        {
+            mParent.ClearPageFooter();
+        }
+
         /********************************
-         * Private Helper Functions
-        ********************************/
+         * Artist Tag Lists
+        *******************************/
+        private void RefTagList()
+        {
+            Console.WriteLine("Refreshing tag list with artist id = " + lstMyArtists.SelectedItem);
+            Console.WriteLine("SQL = " + String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedItem));
+            var results = context.Database.SqlQuery<QryTagValue>(String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
+
+            lstMyTags.Items.Clear();
+            foreach (var result in results)
+            {
+                this.lstMyTags.Items.Add(result.TagValue);
+            }
+
+            if (lstMyTags.Items.Count == 0)
+            {
+                this.lstMyTags.Items.Add("<no associated tags>");
+            }
+
+        }
+
+        private void btnAddTag_MouseEnter(object sender, EventArgs e)
+        {
+            mParent.SetPageFooter("Click to add a new tag");
+        }
+
+        private void btnAddTag_MouseLeave(object sender, EventArgs e)
+        {
+            mParent.ClearPageFooter();
+        }
+
+        private void btnRemoveTag_MouseEnter(object sender, EventArgs e)
+        {
+            mParent.SetPageFooter("Click to remove the selected tag");
+        }
+
+        private void btnRemoveTag_MouseLeave(object sender, EventArgs e)
+        {
+            mParent.ClearPageFooter();
+        }
+
+        private void btnAddTag_Click(object sender, EventArgs e)
+        {
+            frmSelectTag sTag = new frmSelectTag();
+            sTag.ShowDialog();
+        }
+
+        /********************************
+         * Additional Public Helper Functions
+        *******************************/
         /// <summary>
         ///     Called by frmMain when user control is opened or needs to be refreshed
         /// </summary>
@@ -244,30 +342,22 @@ FROM (
             throw new NotImplementedException();
         }
 
- 
-
-        private void txtSearchArtists_TextChanged(object sender, EventArgs e)
-        {
-            LoadArtistList();
-            RefreshArtistAttributes();
-        }
-
-        private void lstMyArtists_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstMyArtists_Click(object sender, EventArgs e)
-        {
-            RefreshArtistAttributes();
-        }
+        /********************************
+         * Searchable Friends List
+        *******************************/
 
 
-
+        // QRY_06_USER_FRIENDS
 
         /********************************
-         * Form based events
+         * Form Control Events
         ********************************/
+
+
+
+
+
+
 
 
     }
@@ -284,6 +374,7 @@ FROM (
     class QryResultNode
     { 
         public string ArtistName { get; set; }
+        public long ArtistID { get; set; }
         public int? Count { get; set; }
     }
 

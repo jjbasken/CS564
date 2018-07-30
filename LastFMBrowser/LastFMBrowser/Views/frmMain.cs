@@ -86,6 +86,11 @@ namespace LastFMBrowser.Views
          * Public interface
         ********************************/
 
+        public void ChangeSubForm(ISwapPanelSubForm newSubForm)
+        {
+            mMenu.ClearMenuSelection(); //Clear the active menu selection
+            SetSubForm(newSubForm);
+        }
         public void SetPageTitle(String newSubTitle, Boolean optIncMainTitle = true)
         {
             String newTitle = "  ";
@@ -131,7 +136,7 @@ namespace LastFMBrowser.Views
         ///     Actually handles the subform swap
         /// </summary>
         /// <param name="mSubForm"> The sub form you want to load into the SwapPanel </param>
-        public void SetSubForm(ISwapPanelSubForm mSubForm)
+        private void SetSubForm(ISwapPanelSubForm mSubForm)
         {
             Console.WriteLine("Setting the sub form");
             if (SwapPanel.Controls.Count > 0)
@@ -153,6 +158,8 @@ namespace LastFMBrowser.Views
             ((UserControl)mSubForm).Anchor = (AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
             SwapPanel.Controls.Add((Control)mSubForm);
         }
+
+
 
 
         /********************************
