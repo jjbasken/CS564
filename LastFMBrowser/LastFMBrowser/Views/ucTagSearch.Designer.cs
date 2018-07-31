@@ -74,6 +74,7 @@
             this.dgArtists.AllowUserToAddRows = false;
             this.dgArtists.AllowUserToDeleteRows = false;
             this.dgArtists.AutoGenerateColumns = false;
+            this.dgArtists.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
             this.dgArtists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgArtists.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.artistIDDataGridViewTextBoxColumn,
@@ -81,6 +82,7 @@
             this.bandURLDataGridViewTextBoxColumn,
             this.bandPictureURLDataGridViewTextBoxColumn});
             this.dgArtists.DataSource = this.tblArtistBindingSource;
+            this.dgArtists.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
             this.dgArtists.Location = new System.Drawing.Point(28, 55);
             this.dgArtists.Name = "dgArtists";
             this.dgArtists.ReadOnly = true;
@@ -127,6 +129,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
             this.Controls.Add(this.dgArtists);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label1);
