@@ -142,7 +142,7 @@ namespace LastFMBrowser.Views
         {
             long mUserID  = (long) mParent.GetActiveUser();
             Console.WriteLine("Function called in parent form as result of OnTagSelected with tagID = " + frmSelectTag.SelectedTagID);
-            Console.WriteLine("TagID, UserID, ArtistID = " + frmSelectTag.SelectedTagID + "," + mUserID + "," + lstMyArtists.SelectedValue);
+            Console.WriteLine("TagID, UserID, ArtistID = :" + frmSelectTag.SelectedTagID + ":,:" + mUserID + ":,:" + lstMyArtists.SelectedValue + ":");
 
             AddNewTag((long) mUserID, (long) lstMyArtists.SelectedValue, (int) frmSelectTag.SelectedTagID);
             RefTagList();
