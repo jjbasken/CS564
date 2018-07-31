@@ -157,5 +157,48 @@ namespace LastFMBrowser.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spFIND_USER_NAME", uSERIDParameter);
         }
+    
+        public virtual int spREMOVE_USER_ARTIST_TAGS(Nullable<long> uSERID, Nullable<long> aRTIST, Nullable<int> tAGID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            var tAGIDParameter = tAGID.HasValue ?
+                new ObjectParameter("TAGID", tAGID) :
+                new ObjectParameter("TAGID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spREMOVE_USER_ARTIST_TAGS", uSERIDParameter, aRTISTParameter, tAGIDParameter);
+        }
+    
+        public virtual int spSET_USER_ARTIST_TAGS(Nullable<long> uSERID, Nullable<long> aRTIST, Nullable<int> tAGID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var aRTISTParameter = aRTIST.HasValue ?
+                new ObjectParameter("ARTIST", aRTIST) :
+                new ObjectParameter("ARTIST", typeof(long));
+    
+            var tAGIDParameter = tAGID.HasValue ?
+                new ObjectParameter("TAGID", tAGID) :
+                new ObjectParameter("TAGID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spSET_USER_ARTIST_TAGS", uSERIDParameter, aRTISTParameter, tAGIDParameter);
+        }
+    
+        public virtual int VALIDATE_LOGIN(Nullable<long> uSERID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("VALIDATE_LOGIN", uSERIDParameter);
+        }
     }
 }

@@ -51,16 +51,25 @@ namespace LastFMBrowser.Views
                                                  "L.ArtistID = {1});";
 
 
+
         //In ctrlDynamicMenuExpandable
-        //public const string QRY_05_TOP_FIVE_ARTISTS = "SELECT * FROM sysMenuList ORDER BY rank;";
+        public const string QRY_05_TOP_FIVE_ARTISTS = "SELECT * FROM sysMenuList ORDER BY rank;";
 
 
-        public const string QRY_06_USER_FRIENDS = "SELECT L.FriendID FROM dbo.lnkUserFriends AS L WHERE UserID = {0};";
+        public const string QRY_06_USER_FRIENDS = "SELECT UserID AS FriendID, FullName AS FriendName FROM tblUsers AS T " +
+                                                  "WHERE EXISTS (SELECT L.FriendID FROM dbo.lnkUserFriends AS L " + 
+                                                                 "WHERE UserID = {0} AND T.userID = L.friendID) " +
+                                                   "AND FullName Like '%{1}%' ORDER BY FriendName;";
+
+        public const string QRY_07_USER_FRIENDS = "SELECT TagID, TagValue FROM tblTags " +
+                                                  "WHERE TagValue Like '%{0}%' ORDER BY TagValue;";
+
+
         /********************************
          * Additional Queries and Stored Procedures can be found
         ********************************/
 
-        
+
 
 
         //public const StoredProcedure_01 = FIND_USER_NAME(UserID)
@@ -76,7 +85,9 @@ namespace LastFMBrowser.Views
         ********************************/
 
         private static uctrlTop5ArtistChart TopFivePie { get; set; }
+        private static uctrlTop5ArtistChart FriendsTop5 { get; set; }
         private static LastFMDataEntities context { get;  set; }
+        private static frmSelectTag sTag { get; set; }
         //Parent form
         private  frmMain mParent { get; set; }
         /********************************
@@ -86,6 +97,8 @@ namespace LastFMBrowser.Views
         public ucDashboard()
         {
             InitializeComponent();
+            sTag = new frmSelectTag();
+            AddUCEventHandlers();
             
         }
 
@@ -99,23 +112,43 @@ namespace LastFMBrowser.Views
         private void InitUC()
         {
             mParent = (this.ParentForm as frmMain);
-            
-
-
-            //Set title with query
-            //GetActiveUser
             context = new LastFMDataEntities();
+            
+            //Set title with query
             mParent.SetPageTitle(context.spFIND_USER_NAME(mParent.GetActiveUser()).FirstOrDefault() + "");
-            Console.WriteLine("About to load top five");
-            LoadTopFivePie();
-            Console.WriteLine("About to load Artist List");
-            LoadArtistList();
 
+            //Load data
+            LoadTopFivePie();
+            LoadArtistList();
+            LoadFriendList();
+            LoadFriendsTopFivePie();
             
         }
 
-        
 
+        /*******************************
+        * Subscribe and Handel to broadcasts
+        *******************************/
+
+        /// <summary>
+        ///     Adds handlers based on delegates in associated classes
+        /// </summary>
+        private void AddUCEventHandlers()
+        {
+            this.lstMyArtists.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstMyArtists_DrawItem);
+        }
+        
+        private void OnTagSelected(object sender, EventArgs e)
+        {
+            long mUserID  = (long) mParent.GetActiveUser();
+            Console.WriteLine("Function called in parent form as result of OnTagSelected with tagID = " + frmSelectTag.SelectedTagID);
+            Console.WriteLine("TagID, UserID, ArtistID = " + frmSelectTag.SelectedTagID + "," + mUserID + "," + lstMyArtists.SelectedValue);
+
+            AddNewTag((long) mUserID, (long) lstMyArtists.SelectedValue, (int) frmSelectTag.SelectedTagID);
+            RefTagList();
+        }
+
+       
 
         /********************************
          * Top Five Artists
@@ -166,6 +199,8 @@ namespace LastFMBrowser.Views
 
         private void LoadArtistList()
         {
+           
+
             //lstMyArtists.Items.Clear();
             //LastFMDataEntities context = new LastFMDataEntities();
             Console.WriteLine("Expected SQL = " + String.Format(QRY_02_ALL_USER_ARTISTS, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName"));
@@ -186,9 +221,43 @@ namespace LastFMBrowser.Views
 
             if (lstMyArtists.Items.Count > 0) lstMyArtists.SelectedIndex = 0;
 
-            //Set count so we can see how many artists a user listens too
             
+
             RefreshArtistAttributes();
+        }
+
+        private void lstMyArtists_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+            Brush myBrush = Brushes.Black;
+            e.DrawBackground();
+            //if the item state is selected them change the back color 
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                myBrush = Brushes.DarkRed;
+
+                e = new DrawItemEventArgs(e.Graphics,
+                                          e.Font,
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          Color.White,
+                                          Color.DarkGoldenrod);//Choose the color
+                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
+            }
+            else
+            {
+                myBrush = Brushes.Black;
+                e.Graphics.FillRectangle(Brushes.Black, e.Bounds);
+            }
+
+            // Draw the background of the ListBox control for each item.
+            e.DrawBackground();
+            // Draw the current item text
+            string mStr = ((KeyValuePair<long, string>) lstMyArtists.Items[e.Index]).Value;
+            e.Graphics.DrawString(mStr, e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            // If the ListBox has focus, draw a focus rectangle around the selected item.
+            e.DrawFocusRectangle();
         }
 
         private void RefreshArtistAttributes()
@@ -266,6 +335,9 @@ namespace LastFMBrowser.Views
             }
 
             mParent.ChangeSubForm(new ucArtistPage());
+
+            
+
         }
 
         private void lstMyArtists_Click(object sender, EventArgs e)
@@ -283,13 +355,15 @@ namespace LastFMBrowser.Views
             mParent.ClearPageFooter();
         }
 
+
+
         /********************************
          * Artist Tag Lists
         *******************************/
         private void RefTagList()
         {
-            Console.WriteLine("Refreshing tag list with artist id = " + lstMyArtists.SelectedItem);
-            Console.WriteLine("SQL = " + String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedItem));
+            Console.WriteLine("Refreshing tag list with artist id = " + lstMyArtists.SelectedValue);
+            Console.WriteLine("SQL = " + String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
             var results = context.Database.SqlQuery<QryTagValue>(String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
 
             lstMyTags.Items.Clear();
@@ -303,6 +377,22 @@ namespace LastFMBrowser.Views
                 this.lstMyTags.Items.Add("<no associated tags>");
             }
 
+        }
+
+        private void AddNewTag(long UserID, long ArtistID, int TagID)
+        {
+            try {context.spSET_USER_ARTIST_TAGS(UserID, frmMain.ArtistID, TagID);}
+            catch (Exception exc) {Console.WriteLine(exc); throw exc; }
+        }
+
+        private void RemoveTag(int? UserID, long ArtistID, int TagID)
+        {
+            try
+            {
+                context.spREMOVE_USER_ARTIST_TAGS(UserID, frmMain.ArtistID, TagID);
+                this.RefreshUserControl();
+            }
+            catch (Exception e_userTagKeyDown){MessageBox.Show(e_userTagKeyDown.Message);}
         }
 
         private void btnAddTag_MouseEnter(object sender, EventArgs e)
@@ -327,8 +417,9 @@ namespace LastFMBrowser.Views
 
         private void btnAddTag_Click(object sender, EventArgs e)
         {
-            frmSelectTag sTag = new frmSelectTag();
-            sTag.ShowDialog();
+            sTag = new frmSelectTag();
+            sTag.TagSelected += new frmSelectTag.TagSelectedEventHandler(OnTagSelected);
+            sTag.Show();
         }
 
         /********************************
@@ -353,19 +444,67 @@ namespace LastFMBrowser.Views
          * Form Control Events
         ********************************/
 
+        private void LoadFriendList()
+        {
+            Console.WriteLine("Expected SQL = " + String.Format(QRY_06_USER_FRIENDS, mParent.GetActiveUser(), txtSearchFriends.Text));
+            var results = context.Database.SqlQuery<QryFriendList>(String.Format(QRY_06_USER_FRIENDS, mParent.GetActiveUser(), txtSearchFriends.Text));
 
 
+            Dictionary<long, string> listSource = new Dictionary<long, string>();
+
+            foreach (var result in results)
+            {
+                listSource.Add(result.FriendID, result.FriendName);
+            }
+
+            lstFriends.DataSource = new BindingSource(listSource, null);
+            lstFriends.DisplayMember = "Value";
+            lstFriends.ValueMember = "Key";
+
+            if (lstFriends.Items.Count > 0) lstFriends.SelectedIndex = 0;
+        }
 
 
+        /********************************
+         * Friends Top 5
+        ********************************/
+
+        private void LoadFriendsTopFivePie()
+        {
+            if (panelFriendsTop5.Controls.Count > 0) panelFriendsTop5.Controls.Clear();
+            FriendsTop5 = new uctrlTop5ArtistChart(getFriendsTop5SQL());
+            FriendsTop5.Dock = DockStyle.Fill;
+            panelFriendsTop5.Controls.Add(FriendsTop5);
+        }
 
 
+        private List<Tuple<string, int?>> getFriendsTop5SQL()
+        {
+            string mSQL;
+            if (lstFriends.Items.Count > 0)
+            {
+                Console.WriteLine("mQry is " + String.Format(QRY_01_TOP_FIVE_ARTISTS, lstFriends.SelectedValue));
+                mSQL = String.Format(QRY_01_TOP_FIVE_ARTISTS, lstFriends.SelectedValue);
+            } else
+            {
+                mSQL = "SELECT '' AS ArtistName, 0 as [Count], -1 AS UserID;";
+            }
 
+            Console.WriteLine("Friends Trending SQL = " + mSQL);
+            return GetQryList(mSQL);
+        }
+
+        private void lstFriends_Click(object sender, EventArgs e)
+        {
+            LoadFriendsTopFivePie();
+        }
+
+        private void txtSearchFriends_TextChanged(object sender, EventArgs e)
+        {
+            LoadFriendList();
+            LoadFriendsTopFivePie();
+        }
     }
-
-
-
-
-
 
     /********************************
     * Helper Classes
@@ -386,6 +525,13 @@ namespace LastFMBrowser.Views
     class QryTagValue
     {
         public String TagValue { get; set; }
+    }
+
+    class QryFriendList
+    {
+        public string FriendName { get; set; }
+        public long FriendID { get; set; }
+
     }
 
 }

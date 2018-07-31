@@ -37,18 +37,22 @@
             // 
             // lstSelect
             // 
+            this.lstSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(244)))), ((int)(((byte)(210)))));
             this.lstSelect.FormattingEnabled = true;
             this.lstSelect.Location = new System.Drawing.Point(12, 36);
             this.lstSelect.Name = "lstSelect";
             this.lstSelect.Size = new System.Drawing.Size(277, 303);
             this.lstSelect.TabIndex = 0;
+            this.lstSelect.DoubleClick += new System.EventHandler(this.lstSelect_DoubleClick);
             // 
             // txtSearch
             // 
+            this.txtSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(244)))), ((int)(((byte)(210)))));
             this.txtSearch.Location = new System.Drawing.Point(84, 349);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(205, 20);
             this.txtSearch.TabIndex = 2;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // label2
             // 
@@ -87,13 +91,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
+            this.BackColor = System.Drawing.Color.Navy;
             this.ClientSize = new System.Drawing.Size(305, 383);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblArtistListHeader);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.lstSelect);
+            this.ForeColor = System.Drawing.Color.Goldenrod;
             this.Name = "frmSelectTag";
             this.Text = "Select A Tag";
             this.ResumeLayout(false);

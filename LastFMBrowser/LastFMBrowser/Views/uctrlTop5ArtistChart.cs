@@ -95,8 +95,8 @@ namespace LastFMBrowser.Views
             //mChart.Series["Series1"]["PieLabelStyle"] = "Outside";
             //mChart.Series["Series1"]["LabelStyle"] = "Center";
             //mChart.Series["Series1"].Font = new System.Drawing.Font("Arial", 12);
-            
- 
+
+
 
             //mChart.Titles.Add("Your Top 5 Played Artists");
             //mChart.BorderlineColor = Color.FromArgb(255, 108, 41, 41);

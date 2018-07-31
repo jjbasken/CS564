@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using LastFMBrowser.Views;
 
 namespace LastFMBrowser.Tools
 {
@@ -11,7 +12,7 @@ namespace LastFMBrowser.Tools
 
         public delegate void dynMenuExpItemSelectionEventHandler(object sender, EventArgs e);
 
-        public const string QRY_05_TOP_FIVE_ARTISTS = "SELECT * FROM sysMenuList ORDER BY rank;";
+        //public const string QRY_05_TOP_FIVE_ARTISTS = "SELECT * FROM sysMenuList ORDER BY rank;";
         /*******************************
         * Constances
         *******************************/
@@ -76,7 +77,7 @@ namespace LastFMBrowser.Tools
             LastFMDataEntities context = new LastFMDataEntities();
             //Northwnd db = new Northwnd(@"c:\northwnd.mdf");
             IEnumerable<sysMenuList> results =
-                context.sysMenuLists.SqlQuery(QRY_05_TOP_FIVE_ARTISTS);
+                context.sysMenuLists.SqlQuery(ucDashboard.QRY_05_TOP_FIVE_ARTISTS);
 
             foreach (var menuItem in results)
             {

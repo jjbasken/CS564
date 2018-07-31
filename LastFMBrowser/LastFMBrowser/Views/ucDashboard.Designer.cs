@@ -46,10 +46,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnRemoveTag = new System.Windows.Forms.Button();
             this.btnAddTag = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.txtSearchFriends = new System.Windows.Forms.TextBox();
+            this.lstFriends = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelFriendsTop5 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // panelMyTopFivePie
@@ -100,10 +100,12 @@
             this.lstMyArtists.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstMyArtists.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(221)))), ((int)(((byte)(191)))));
+            this.lstMyArtists.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstMyArtists.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstMyArtists.FormattingEnabled = true;
             this.lstMyArtists.Location = new System.Drawing.Point(24, 72);
             this.lstMyArtists.Name = "lstMyArtists";
-            this.lstMyArtists.Size = new System.Drawing.Size(248, 238);
+            this.lstMyArtists.Size = new System.Drawing.Size(248, 236);
             this.lstMyArtists.TabIndex = 11;
             this.lstMyArtists.Click += new System.EventHandler(this.lstMyArtists_Click);
             this.lstMyArtists.DoubleClick += new System.EventHandler(this.lstMyArtists_DoubleClick);
@@ -279,24 +281,26 @@
             this.btnAddTag.MouseEnter += new System.EventHandler(this.btnAddTag_MouseEnter);
             this.btnAddTag.MouseLeave += new System.EventHandler(this.btnAddTag_MouseLeave);
             // 
-            // textBox1
+            // txtSearchFriends
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.Lavender;
-            this.textBox1.Location = new System.Drawing.Point(687, 235);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(171, 20);
-            this.textBox1.TabIndex = 27;
+            this.txtSearchFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchFriends.BackColor = System.Drawing.Color.Lavender;
+            this.txtSearchFriends.Location = new System.Drawing.Point(687, 235);
+            this.txtSearchFriends.Name = "txtSearchFriends";
+            this.txtSearchFriends.Size = new System.Drawing.Size(171, 20);
+            this.txtSearchFriends.TabIndex = 27;
+            this.txtSearchFriends.TextChanged += new System.EventHandler(this.txtSearchFriends_TextChanged);
             // 
-            // listBox1
+            // lstFriends
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.BackColor = System.Drawing.Color.Lavender;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(606, 72);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(252, 160);
-            this.listBox1.TabIndex = 26;
+            this.lstFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstFriends.BackColor = System.Drawing.Color.Lavender;
+            this.lstFriends.FormattingEnabled = true;
+            this.lstFriends.Location = new System.Drawing.Point(606, 72);
+            this.lstFriends.Name = "lstFriends";
+            this.lstFriends.Size = new System.Drawing.Size(252, 160);
+            this.lstFriends.TabIndex = 26;
+            this.lstFriends.Click += new System.EventHandler(this.lstFriends_Click);
             // 
             // label2
             // 
@@ -309,26 +313,26 @@
             this.label2.TabIndex = 28;
             this.label2.Text = "Search Friends";
             // 
-            // panel1
+            // panelFriendsTop5
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelFriendsTop5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Lavender;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(606, 301);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(252, 203);
-            this.panel1.TabIndex = 9;
+            this.panelFriendsTop5.BackColor = System.Drawing.Color.Lavender;
+            this.panelFriendsTop5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelFriendsTop5.Location = new System.Drawing.Point(606, 301);
+            this.panelFriendsTop5.Name = "panelFriendsTop5";
+            this.panelFriendsTop5.Size = new System.Drawing.Size(252, 203);
+            this.panelFriendsTop5.TabIndex = 9;
             // 
             // ucDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(200)))));
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelFriendsTop5);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.txtSearchFriends);
+            this.Controls.Add(this.lstFriends);
             this.Controls.Add(this.btnAddTag);
             this.Controls.Add(this.btnRemoveTag);
             this.Controls.Add(this.label3);
@@ -372,9 +376,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnRemoveTag;
         private System.Windows.Forms.Button btnAddTag;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox txtSearchFriends;
+        private System.Windows.Forms.ListBox lstFriends;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelFriendsTop5;
     }
 }

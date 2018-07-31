@@ -207,10 +207,23 @@
         <Function Name="spFIND_USER_NAME" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERID" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="spREMOVE_USER_ARTIST_TAGS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+          <Parameter Name="ARTIST" Type="bigint" Mode="In" />
+          <Parameter Name="TAGID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSET_USER_ARTIST_TAGS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+          <Parameter Name="ARTIST" Type="bigint" Mode="In" />
+          <Parameter Name="TAGID" Type="int" Mode="In" />
+        </Function>
         <Function Name="TAG_ARTIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERID" Type="bigint" Mode="In" />
           <Parameter Name="ARTIST" Type="bigint" Mode="In" />
           <Parameter Name="TAGVALUE" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="VALIDATE_LOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="LastFMDataModelStoreContainer">
           <EntitySet Name="lnkUserArtist" EntityType="Self.lnkUserArtist" Schema="dbo" store:Type="Tables" />
@@ -472,9 +485,22 @@
             <Parameter Name="ARTIST" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="spFIND_ARTIST_DETAIL" ReturnType="Collection(LastFMDataModel.spFIND_ARTIST_DETAIL_Result)">
-            <Parameter Name="ARTIST_ID" Mode="In" Type="Int64" />
+          <Parameter Name="ARTIST_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="spFIND_USER_NAME" ReturnType="Collection(String)">
+          <Parameter Name="USERID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="spREMOVE_USER_ARTIST_TAGS">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
+            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+            <Parameter Name="TAGID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spSET_USER_ARTIST_TAGS">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
+            <Parameter Name="ARTIST" Mode="In" Type="Int64" />
+            <Parameter Name="TAGID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="VALIDATE_LOGIN">
             <Parameter Name="USERID" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
@@ -672,6 +698,9 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spFIND_USER_NAME" FunctionName="LastFMDataModel.Store.spFIND_USER_NAME" />
+          <FunctionImportMapping FunctionImportName="spREMOVE_USER_ARTIST_TAGS" FunctionName="LastFMDataModel.Store.spREMOVE_USER_ARTIST_TAGS" />
+          <FunctionImportMapping FunctionImportName="spSET_USER_ARTIST_TAGS" FunctionName="LastFMDataModel.Store.spSET_USER_ARTIST_TAGS" />
+          <FunctionImportMapping FunctionImportName="VALIDATE_LOGIN" FunctionName="LastFMDataModel.Store.VALIDATE_LOGIN" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
