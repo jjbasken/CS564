@@ -54,7 +54,7 @@ namespace LastFMBrowser.Views
             artistPage.BringToFront();
         }
 
-        private void tb_KeyDown(object sender, KeyEventArgs e)
+        private void tb_KeyUp(object sender, KeyEventArgs e)
         {
                  artistSearch();
         }
@@ -63,7 +63,6 @@ namespace LastFMBrowser.Views
         {
             throw new NotImplementedException();
         }
-
 
     }
 }

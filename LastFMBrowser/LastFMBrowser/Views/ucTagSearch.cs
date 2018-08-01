@@ -84,6 +84,5 @@ namespace LastFMBrowser.Views
             throw new NotImplementedException();
         }
 
-
     }
 }
