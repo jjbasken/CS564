@@ -13,6 +13,8 @@ namespace LastFMBrowser.Views
 {
     public partial class ucArtistSearch : UserControl, ISwapPanelSubForm
     {
+        //Parent form
+        private frmMain mParent { get; set; }
         public ucArtistSearch()
         {
             InitializeComponent();
@@ -45,14 +47,10 @@ namespace LastFMBrowser.Views
             {
                 MessageBox.Show(exc.Message);
             }
-            this.Hide();
-            Panel parentForm = (this.Parent as Panel);
+            mParent = (this.ParentForm as frmMain);
             LastFMBrowser.Views.ucArtistPage artistPage = new ucArtistPage();
-            artistPage.Dock = DockStyle.Fill;
-            artistPage.Show();
-            parentForm.Controls.Add(artistPage);
-            artistPage.BringToFront();
-        }
+            mParent.ChangeSubForm(artistPage);
+         }
 
         private void tb_KeyUp(object sender, KeyEventArgs e)
         {

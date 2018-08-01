@@ -331,6 +331,7 @@
             this.dgOtherUsers.RowHeadersVisible = false;
             this.dgOtherUsers.Size = new System.Drawing.Size(164, 303);
             this.dgOtherUsers.TabIndex = 13;
+            this.dgOtherUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgOtherUsers_CellContentClick);
             // 
             // userIDDataGridViewTextBoxColumn
             // 
