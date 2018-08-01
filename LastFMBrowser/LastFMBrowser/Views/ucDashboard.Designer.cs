@@ -254,12 +254,13 @@
             this.btnRemoveTag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveTag.ForeColor = System.Drawing.Color.Maroon;
-            this.btnRemoveTag.Location = new System.Drawing.Point(210, 361);
+            this.btnRemoveTag.Location = new System.Drawing.Point(218, 358);
             this.btnRemoveTag.Name = "btnRemoveTag";
-            this.btnRemoveTag.Size = new System.Drawing.Size(23, 20);
+            this.btnRemoveTag.Size = new System.Drawing.Size(15, 23);
             this.btnRemoveTag.TabIndex = 24;
             this.btnRemoveTag.Text = "-";
             this.btnRemoveTag.UseVisualStyleBackColor = true;
+            this.btnRemoveTag.Click += new System.EventHandler(this.btnRemoveTag_Click);
             this.btnRemoveTag.MouseEnter += new System.EventHandler(this.btnRemoveTag_MouseEnter);
             this.btnRemoveTag.MouseLeave += new System.EventHandler(this.btnRemoveTag_MouseLeave);
             // 
@@ -301,6 +302,7 @@
             this.lstFriends.Size = new System.Drawing.Size(252, 160);
             this.lstFriends.TabIndex = 26;
             this.lstFriends.Click += new System.EventHandler(this.lstFriends_Click);
+            this.lstFriends.DoubleClick += new System.EventHandler(this.lstFriends_DoubleClick);
             // 
             // label2
             // 

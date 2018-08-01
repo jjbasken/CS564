@@ -102,6 +102,7 @@ namespace LastFMBrowser.Views
             //mChart.BorderlineColor = Color.FromArgb(255, 108, 41, 41);
 
             int i = 0;
+            if (SQLList == null) return;
             foreach (Tuple<string, int?> dataPoint in SQLList)
             {
                 mChart.Series["Series1"].Points.AddXY(dataPoint.Item2 + "", (double) dataPoint.Item2);

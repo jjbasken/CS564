@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LastFMBrowser.Interfaces;
 using LastFMBrowser.Models;
+using System.Data.SqlClient;
 
 namespace LastFMBrowser.Views
 {
@@ -45,7 +46,7 @@ namespace LastFMBrowser.Views
                                                             "({0}) AS Qry";
 
 
-        public const string QRY_04_ARTIST_TAGS = "SELECT TagValue FROM tblTags AS T WHERE " +
+        public const string QRY_04_ARTIST_TAGS = "SELECT TagID, TagValue FROM tblTags AS T WHERE " +
                                                  "EXISTS (SELECT UserID, ArtistID, TagID " +
                                                  "FROM lnkUserTagArtist AS L WHERE UserID = {0} AND L.TagID = T.TagID AND  " +
                                                  "L.ArtistID = {1});";
@@ -61,8 +62,17 @@ namespace LastFMBrowser.Views
                                                                  "WHERE UserID = {0} AND T.userID = L.friendID) " +
                                                    "AND FullName Like '%{1}%' ORDER BY FriendName;";
 
-        public const string QRY_07_USER_FRIENDS = "SELECT TagID, TagValue FROM tblTags " +
-                                                  "WHERE TagValue Like '%{0}%' ORDER BY TagValue;";
+        public const string QRY_07_ALL_TAGS = "SELECT TagID, TagValue FROM tblTags " +
+                                              "WHERE TagValue Like '%{0}%' ORDER BY TagValue;";
+
+        //public const string QRY_08_ALL_USERS = "SELECT UserID, FullName FROM tblUsers;";
+
+        public const string QRY_08_ALL_USERS = "SELECT UserID, FullName FROM tblUsers WHERE UserID IN " + 
+                                               "(SELECT TOP 100 UserID FROM lnkUserArtist AS L " + 
+                                               "GROUP BY UserID ORDER BY COUNT(UserID) DESC);";
+
+        public const string QRY_09_USER_FRIENDS = "SELECT UserID, FullName FROM tblUsers " +
+                                                 "WHERE FullName Like '%{0}%' ORDER BY FullName;";
 
 
         /********************************
@@ -93,7 +103,7 @@ namespace LastFMBrowser.Views
         /********************************
          * Constructor
         ********************************/
-
+        
         public ucDashboard()
         {
             InitializeComponent();
@@ -138,6 +148,11 @@ namespace LastFMBrowser.Views
             this.lstMyArtists.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstMyArtists_DrawItem);
         }
         
+        /// <summary>
+        ///     frmSelecteTag has triggered a TagSelectedEvent as the result of the user selecting a tag from the ist
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnTagSelected(object sender, EventArgs e)
         {
             long mUserID  = (long) mParent.GetActiveUser();
@@ -183,12 +198,14 @@ namespace LastFMBrowser.Views
             var results = context.Database.SqlQuery<QryResultNode>(QrySQL);
 
             //mReturn = results.ToList<Tuple<string, int?>>();
-            
-            foreach (var result in results)
-            {
-                Console.WriteLine("Adding [" + result.ArtistName + "," + result.Count + "]");
-                mReturn.Add(new Tuple<string, int?>(result.ArtistName , result.Count));
+            try { var mInt = results.Count() <= 0; 
+                    foreach (var result in results)
+                    {
+                        Console.WriteLine("Adding [" + result.ArtistName + "," + result.Count + "]");
+                        mReturn.Add(new Tuple<string, int?>(result.ArtistName , result.Count));
+                    }
             }
+            catch (SqlException sExc) { return null;}
 
             return mReturn;
         }
@@ -215,6 +232,13 @@ namespace LastFMBrowser.Views
                 listSource.Add(result.ArtistID, result.ArtistName);
             }
 
+
+            if (listSource.Count == 0)
+            {
+                listSource.Add(-1, "<no associated artists>");
+            }
+
+
             lstMyArtists.DataSource = new BindingSource(listSource, null);
             lstMyArtists.DisplayMember = "Value";
             lstMyArtists.ValueMember = "Key";
@@ -228,7 +252,9 @@ namespace LastFMBrowser.Views
 
         private void lstMyArtists_DrawItem(object sender, DrawItemEventArgs e)
         {
+            
             if (e.Index < 0) return;
+            if (lstMyArtists.Items.Count <= 0) return;
             Brush myBrush = Brushes.Black;
             e.DrawBackground();
             //if the item state is selected them change the back color 
@@ -254,8 +280,14 @@ namespace LastFMBrowser.Views
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
             // Draw the current item text
-            string mStr = ((KeyValuePair<long, string>) lstMyArtists.Items[e.Index]).Value;
-            e.Graphics.DrawString(mStr, e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            try
+            {
+                string mStr = ((KeyValuePair<long, string>)lstMyArtists.Items[e.Index]).Value;
+                e.Graphics.DrawString(mStr, e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+
+            } catch (Exception exc){}
+            
+            
             // If the ListBox has focus, draw a focus rectangle around the selected item.
             e.DrawFocusRectangle();
         }
@@ -366,33 +398,64 @@ namespace LastFMBrowser.Views
             Console.WriteLine("SQL = " + String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
             var results = context.Database.SqlQuery<QryTagValue>(String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
 
-            lstMyTags.Items.Clear();
+            Dictionary<int, string> listSource = new Dictionary<int, string>();
+
+
+            try { var mInt = results.Count() <= 0; } catch (SqlException sExc) { return; }
             foreach (var result in results)
             {
-                this.lstMyTags.Items.Add(result.TagValue);
+                Console.WriteLine(result.TagID + " - " + result.TagValue);
+                listSource.Add(result.TagID, result.TagValue);
             }
 
-            if (lstMyTags.Items.Count == 0)
+            if (listSource.Count == 0)
             {
-                this.lstMyTags.Items.Add("<no associated tags>");
+                listSource.Add(-1, "<no associated tags>");
             }
 
+            lstMyTags.DataSource = new BindingSource(listSource, null);
+            lstMyTags.DisplayMember = "Value";
+            lstMyTags.ValueMember = "Key";
         }
 
         private void AddNewTag(long UserID, long ArtistID, int TagID)
         {
-            try {context.spSET_USER_ARTIST_TAGS(UserID, frmMain.ArtistID, TagID);}
+            try {context.spSET_USER_ARTIST_TAGS(UserID, ArtistID, TagID);}
             catch (Exception exc) {Console.WriteLine(exc); throw exc; }
         }
 
-        private void RemoveTag(int? UserID, long ArtistID, int TagID)
+        /// <summary>
+        /// Removes the userid-artistid-tagid link
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <param name="ArtistID"></param>
+        /// <param name="TagID"></param>
+        private void RemoveTag(long UserID, long ArtistID, int TagID)
         {
             try
             {
-                context.spREMOVE_USER_ARTIST_TAGS(UserID, frmMain.ArtistID, TagID);
-                this.RefreshUserControl();
+                context.spREMOVE_USER_ARTIST_TAGS(UserID, ArtistID, TagID);
+                RefTagList();
             }
             catch (Exception e_userTagKeyDown){MessageBox.Show(e_userTagKeyDown.Message);}
+        }
+
+        private void btnRemoveTag_Click(object sender, EventArgs e)
+        {
+            long mUserID = (long)mParent.GetActiveUser();
+            try
+            {
+                Console.WriteLine("About to remove based on UserID:ArtistID:tagID = " + mUserID + ":" +
+                    (long)lstMyArtists.SelectedValue + ":" + (int)lstMyTags.SelectedValue);
+
+                RemoveTag(mUserID, (long)lstMyArtists.SelectedValue, (int)lstMyTags.SelectedValue);
+
+            } catch (NullReferenceException exc)
+            {
+                Console.WriteLine("Exception thrown removing tag - " + exc.StackTrace);
+                MessageBox.Show("You must first select the tag you want to remove");
+            }
+
         }
 
         private void btnAddTag_MouseEnter(object sender, EventArgs e)
@@ -430,7 +493,7 @@ namespace LastFMBrowser.Views
         /// </summary>
         public void RefreshUserControl()
         {
-            throw new NotImplementedException();
+
         }
 
         /********************************
@@ -452,14 +515,22 @@ namespace LastFMBrowser.Views
 
             Dictionary<long, string> listSource = new Dictionary<long, string>();
 
+            try { var mInt = results.Count() <= 0; } catch (SqlException sExc) { return; }
+
             foreach (var result in results)
             {
                 listSource.Add(result.FriendID, result.FriendName);
             }
 
+            if(listSource.Count == 0)
+            {
+                listSource.Add(-1, "<no associated Friends>");
+            }
+
             lstFriends.DataSource = new BindingSource(listSource, null);
             lstFriends.DisplayMember = "Value";
             lstFriends.ValueMember = "Key";
+            
 
             if (lstFriends.Items.Count > 0) lstFriends.SelectedIndex = 0;
         }
@@ -504,6 +575,12 @@ namespace LastFMBrowser.Views
             LoadFriendList();
             LoadFriendsTopFivePie();
         }
+
+        private void lstFriends_DoubleClick(object sender, EventArgs e)
+        {
+            ucBrowseUsers mBrowseUsers = new ucBrowseUsers((long)lstFriends.SelectedValue);
+            mParent.ChangeSubForm(mBrowseUsers); 
+        }
     }
 
     /********************************
@@ -524,6 +601,7 @@ namespace LastFMBrowser.Views
 
     class QryTagValue
     {
+        public int TagID { get; set; }
         public String TagValue { get; set; }
     }
 

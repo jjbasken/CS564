@@ -41,8 +41,8 @@ namespace LastFMBrowser.Views
         /// </summary>
         private void LoadLstSelect()
         {
-            Console.WriteLine("Expected SQL = " + String.Format(ucDashboard.QRY_07_USER_FRIENDS, txtSearch.Text));
-            var results = context.Database.SqlQuery<QryTagList>(String.Format(ucDashboard.QRY_07_USER_FRIENDS, txtSearch.Text));
+            Console.WriteLine("Expected SQL = " + String.Format(ucDashboard.QRY_07_ALL_TAGS, txtSearch.Text));
+            var results = context.Database.SqlQuery<QryTagList>(String.Format(ucDashboard.QRY_07_ALL_TAGS, txtSearch.Text));
 
 
             Dictionary<int, string> listSource = new Dictionary<int, string>();

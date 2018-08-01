@@ -30,6 +30,7 @@ namespace LastFMBrowser.Views
         public static String BandURL = "";
         public static String BandPictureURL = "";
         public static long User_ID = 1;
+        private static long AcitveUserID;
 
         /********************************
          * Form initialization
@@ -45,6 +46,7 @@ namespace LastFMBrowser.Views
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            AcitveUserID = 89;
             ClearPageFooter();
             LoadActiveSubForm();
             SetFooterDate();
@@ -100,13 +102,19 @@ namespace LastFMBrowser.Views
             lblTitle.Text = newTitle;
         }
 
-        public int? GetActiveUser()
+        public long GetActiveUser()
         {
-            return 89; //User 89 very active in tagging artists, verified active in all user queries with the folowing
+            return AcitveUserID; //User 89 very active in tagging artists, verified active in all user queries with the folowing
                        /*SELECT TOP 1 UserID, COUNT(UserID) AS countUserID FROM lnkUserArtist 
                            WHERE UserID IN (SELECT UserID FROM lnkUserTagArtist) 
                            AND UserID IN (SELECT UserID FROM lnkUserTagArtist) 
                            GROUP BY UserID ORDER BY COUNT(UserID) DESC ;*/
+        }
+
+        public void SetActiveUser(long newUser)
+        {
+            Console.WriteLine("SetActiveUser = " + newUser);
+            AcitveUserID  = newUser; 
         }
 
         public void SetPageFooter(String newFooter)

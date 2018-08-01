@@ -64,7 +64,7 @@
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(893, 71);
+            this.lblTitle.Size = new System.Drawing.Size(899, 71);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Dashboard";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -118,9 +118,9 @@
             this.lblFooterDate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(94)))), ((int)(((byte)(81)))));
             this.lblFooterDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblFooterDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(179)))), ((int)(((byte)(160)))));
-            this.lblFooterDate.Location = new System.Drawing.Point(709, 592);
+            this.lblFooterDate.Location = new System.Drawing.Point(698, 592);
             this.lblFooterDate.Name = "lblFooterDate";
-            this.lblFooterDate.Size = new System.Drawing.Size(174, 21);
+            this.lblFooterDate.Size = new System.Drawing.Size(191, 21);
             this.lblFooterDate.TabIndex = 91;
             this.lblFooterDate.Text = ". . .";
             this.lblFooterDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -134,7 +134,7 @@
             this.lblFooter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(179)))), ((int)(((byte)(160)))));
             this.lblFooter.Location = new System.Drawing.Point(0, 592);
             this.lblFooter.Name = "lblFooter";
-            this.lblFooter.Size = new System.Drawing.Size(706, 21);
+            this.lblFooter.Size = new System.Drawing.Size(692, 21);
             this.lblFooter.TabIndex = 4;
             this.lblFooter.Text = ". . .";
             this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -165,7 +165,7 @@
             this.SwapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SwapPanel.Location = new System.Drawing.Point(0, 71);
             this.SwapPanel.Name = "SwapPanel";
-            this.SwapPanel.Size = new System.Drawing.Size(890, 518);
+            this.SwapPanel.Size = new System.Drawing.Size(896, 518);
             this.SwapPanel.TabIndex = 1;
             // 
             // frmMain
