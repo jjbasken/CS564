@@ -369,7 +369,8 @@ namespace LastFMBrowser.Tools
 
         private void SetSelectedDesign()
         {
-            BackColor = Color.FromArgb(255, 253, 252, 230); 
+            //BackColor = Color.FromArgb(255, 253, 252, 230); 
+            BackColor = Color.FromArgb(255, 222, 208, 189);
             ForeColor = Color.FromArgb(255, 124, 38, 41);
             Font = new Font(this.Font, FontStyle.Bold);
             FlatAppearance.MouseOverBackColor = Color.Peru;
