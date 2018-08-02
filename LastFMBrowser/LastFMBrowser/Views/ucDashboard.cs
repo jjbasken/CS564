@@ -156,9 +156,6 @@ namespace LastFMBrowser.Views
         private void OnTagSelected(object sender, EventArgs e)
         {
             long mUserID  = (long) mParent.GetActiveUser();
-            Console.WriteLine("Function called in parent form as result of OnTagSelected with tagID = " + frmSelectTag.SelectedTagID);
-            Console.WriteLine("TagID, UserID, ArtistID = :" + frmSelectTag.SelectedTagID + ":,:" + mUserID + ":,:" + lstMyArtists.SelectedValue + ":");
-
             AddNewTag((long) mUserID, (long) lstMyArtists.SelectedValue, (int) frmSelectTag.SelectedTagID);
             RefTagList();
         }
@@ -180,11 +177,7 @@ namespace LastFMBrowser.Views
         private List<Tuple<string, int?>> getTopFiveSQL()
         {
             string mSQL;
-            Console.WriteLine("Active User is = " + mParent.GetActiveUser());
-            Console.WriteLine("mQry is " + String.Format(QRY_01_TOP_FIVE_ARTISTS, mParent.GetActiveUser()));
-
             mSQL = String.Format(QRY_01_TOP_FIVE_ARTISTS, mParent.GetActiveUser());
-
             return GetQryList(mSQL);
         }
 
@@ -201,7 +194,6 @@ namespace LastFMBrowser.Views
             try { var mInt = results.Count() <= 0; 
                     foreach (var result in results)
                     {
-                        Console.WriteLine("Adding [" + result.ArtistName + "," + result.Count + "]");
                         mReturn.Add(new Tuple<string, int?>(result.ArtistName , result.Count));
                     }
             }
@@ -216,11 +208,6 @@ namespace LastFMBrowser.Views
 
         private void LoadArtistList()
         {
-           
-
-            //lstMyArtists.Items.Clear();
-            //LastFMDataEntities context = new LastFMDataEntities();
-            Console.WriteLine("Expected SQL = " + String.Format(QRY_02_ALL_USER_ARTISTS, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName"));
             var results = context.Database.SqlQuery<QryResultNode>(String.Format(QRY_02_ALL_USER_ARTISTS, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName"));
 
 
@@ -228,7 +215,6 @@ namespace LastFMBrowser.Views
 
             foreach (var result in results)
             {
-                Console.WriteLine(result.ArtistID + " - " + result.ArtistName);
                 listSource.Add(result.ArtistID, result.ArtistName);
             }
 
@@ -305,11 +291,6 @@ namespace LastFMBrowser.Views
         /// </summary>
         private void setArtistCount()
         {
-            //var results = context.Database.SqlQuery<QryArtistCount>
-            //    (String.Format(QRY_03_ALL_USERS_ARTISTS_COUNT, mParent.GetActiveUser())).FirstOrDefault();
-
-            Console.WriteLine(String.Format(QRY_03_ALL_USERS_ARTISTS_COUNT,
-                    String.Format(QRY_02_ALL_USER_ARTISTS_CORE, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName")));
             var results = context.Database.SqlQuery < QryArtistCount >
                 (String.Format(QRY_03_ALL_USERS_ARTISTS_COUNT,
                     String.Format(QRY_02_ALL_USER_ARTISTS_CORE, mParent.GetActiveUser(), txtSearchArtists.Text, "ArtistName"))).FirstOrDefault();
@@ -346,11 +327,9 @@ namespace LastFMBrowser.Views
             catch (Exception E)
             {
                 mArtistID = -1;
-                Console.WriteLine("Exception occured " + E.StackTrace);
             }
 
             var artistDetails = context.spFIND_ARTIST_DETAIL(mArtistID).FirstOrDefault();
-            Console.WriteLine(artistDetails);
 
 
             try
@@ -394,8 +373,6 @@ namespace LastFMBrowser.Views
         *******************************/
         private void RefTagList()
         {
-            Console.WriteLine("Refreshing tag list with artist id = " + lstMyArtists.SelectedValue);
-            Console.WriteLine("SQL = " + String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
             var results = context.Database.SqlQuery<QryTagValue>(String.Format(QRY_04_ARTIST_TAGS, mParent.GetActiveUser(), lstMyArtists.SelectedValue));
 
             Dictionary<int, string> listSource = new Dictionary<int, string>();
@@ -404,7 +381,6 @@ namespace LastFMBrowser.Views
             try { var mInt = results.Count() <= 0; } catch (SqlException sExc) { return; }
             foreach (var result in results)
             {
-                Console.WriteLine(result.TagID + " - " + result.TagValue);
                 listSource.Add(result.TagID, result.TagValue);
             }
 
@@ -445,8 +421,7 @@ namespace LastFMBrowser.Views
             long mUserID = (long)mParent.GetActiveUser();
             try
             {
-                Console.WriteLine("About to remove based on UserID:ArtistID:tagID = " + mUserID + ":" +
-                    (long)lstMyArtists.SelectedValue + ":" + (int)lstMyTags.SelectedValue);
+
 
                 RemoveTag(mUserID, (long)lstMyArtists.SelectedValue, (int)lstMyTags.SelectedValue);
 
@@ -509,7 +484,6 @@ namespace LastFMBrowser.Views
 
         private void LoadFriendList()
         {
-            Console.WriteLine("Expected SQL = " + String.Format(QRY_06_USER_FRIENDS, mParent.GetActiveUser(), txtSearchFriends.Text));
             var results = context.Database.SqlQuery<QryFriendList>(String.Format(QRY_06_USER_FRIENDS, mParent.GetActiveUser(), txtSearchFriends.Text));
 
 
@@ -554,14 +528,12 @@ namespace LastFMBrowser.Views
             string mSQL;
             if (lstFriends.Items.Count > 0)
             {
-                Console.WriteLine("mQry is " + String.Format(QRY_01_TOP_FIVE_ARTISTS, lstFriends.SelectedValue));
                 mSQL = String.Format(QRY_01_TOP_FIVE_ARTISTS, lstFriends.SelectedValue);
             } else
             {
                 mSQL = "SELECT '' AS ArtistName, 0 as [Count], -1 AS UserID;";
             }
 
-            Console.WriteLine("Friends Trending SQL = " + mSQL);
             return GetQryList(mSQL);
         }
 

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAddTag = new System.Windows.Forms.Button();
+            this.btnAddFriend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lstMyTags = new System.Windows.Forms.ListBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -47,21 +47,22 @@
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnAddTag
+            // btnAddFriend
             // 
-            this.btnAddTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddTag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnAddTag.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnAddTag.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAddTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddTag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnAddTag.Location = new System.Drawing.Point(743, 11);
-            this.btnAddTag.Name = "btnAddTag";
-            this.btnAddTag.Size = new System.Drawing.Size(114, 23);
-            this.btnAddTag.TabIndex = 37;
-            this.btnAddTag.Text = "Add As Friend";
-            this.btnAddTag.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAddTag.UseVisualStyleBackColor = false;
+            this.btnAddFriend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddFriend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnAddFriend.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnAddFriend.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddFriend.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddFriend.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnAddFriend.Location = new System.Drawing.Point(743, 11);
+            this.btnAddFriend.Name = "btnAddFriend";
+            this.btnAddFriend.Size = new System.Drawing.Size(114, 23);
+            this.btnAddFriend.TabIndex = 37;
+            this.btnAddFriend.Text = "Add As Friend";
+            this.btnAddFriend.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAddFriend.UseVisualStyleBackColor = false;
+            this.btnAddFriend.Click += new System.EventHandler(this.btnAddFriend_Click);
             // 
             // label4
             // 
@@ -284,7 +285,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.btnAddTag);
+            this.Controls.Add(this.btnAddFriend);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lstMyTags);
             this.Controls.Add(this.label10);
@@ -305,7 +306,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnAddTag;
+        private System.Windows.Forms.Button btnAddFriend;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox lstMyTags;
         private System.Windows.Forms.Label label10;

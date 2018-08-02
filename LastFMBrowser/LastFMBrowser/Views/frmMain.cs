@@ -113,7 +113,6 @@ namespace LastFMBrowser.Views
 
         public void SetActiveUser(long newUser)
         {
-            Console.WriteLine("SetActiveUser = " + newUser);
             AcitveUserID  = newUser; 
         }
 
@@ -146,13 +145,11 @@ namespace LastFMBrowser.Views
         /// <param name="mSubForm"> The sub form you want to load into the SwapPanel </param>
         private void SetSubForm(ISwapPanelSubForm mSubForm)
         {
-            Console.WriteLine("Setting the sub form");
             if (SwapPanel.Controls.Count > 0)
             {
                 //Selection already set
                 if (SwapPanel.Controls[0] == mSubForm)
                 {
-                    Console.WriteLine("Selection already set");
                     return;
                 }
 

@@ -53,17 +53,15 @@ namespace LastFMBrowser.Views
             mParent = (this.ParentForm as frmMain);
 
             context = new LastFMDataEntities();
-            
-            //Set title with query
-            mParent.SetPageTitle((string) lstUsers.SelectedItem);
 
+
+ 
             //Load data
             LoadUserList();
-            SetActiveUser(ActiveUserID);
+            if(ActiveUserID > 0)  lstUsers.SelectedValue = ActiveUserID;
+            SetActiveUser((long) lstUsers.SelectedValue);
             LoadTopFivePie();
             LoadArtistList();
-            
-
         }
 
         private long GetSelectedUser()
@@ -87,8 +85,6 @@ namespace LastFMBrowser.Views
         private List<Tuple<string, int?>> getTopFiveSQL()
         {
             string mSQL;
-            Console.WriteLine("Setting top five Active User is = " + GetSelectedUser());
-            Console.WriteLine("mQry is " + String.Format(ucDashboard.QRY_01_TOP_FIVE_ARTISTS, GetSelectedUser()));
 
             mSQL = String.Format(ucDashboard.QRY_01_TOP_FIVE_ARTISTS, GetSelectedUser());
 
@@ -104,7 +100,6 @@ namespace LastFMBrowser.Views
             
             foreach (var result in results)
             {
-                Console.WriteLine("Adding [" + result.ArtistName + "," + result.Count + "]");
                 mReturn.Add(new Tuple<string, int?>(result.ArtistName, result.Count));
             }
             
@@ -118,11 +113,6 @@ namespace LastFMBrowser.Views
 
         private void LoadArtistList()
         {
-
-
-            //lstMyArtists.Items.Clear();
-            //LastFMDataEntities context = new LastFMDataEntities();
-            Console.WriteLine("Expected SQL = " + String.Format(ucDashboard.QRY_02_ALL_USER_ARTISTS, GetSelectedUser(), txtSearchArtists.Text, "ArtistName"));
             var results = context.Database.SqlQuery<QryResultNode>(String.Format(ucDashboard.QRY_02_ALL_USER_ARTISTS, GetSelectedUser(), txtSearchArtists.Text, "ArtistName"));
 
 
@@ -132,22 +122,16 @@ namespace LastFMBrowser.Views
 
             foreach (var result in results)
             {
-                //Console.WriteLine(result.ArtistID + " - " + result.ArtistName);
                 listSource.Add(result.ArtistID, result.ArtistName);
             }
 
-            if (listSource.Count == 0)
-            {
-                listSource.Add(-1, "<no associated artists>");
-            }
+            if (listSource.Count == 0) {listSource.Add(-1, "<no associated artists>");}
 
             lstMyArtists.DataSource = new BindingSource(listSource, null);
             lstMyArtists.DisplayMember = "Value";
             lstMyArtists.ValueMember = "Key";
 
             if (lstMyArtists.Items.Count > 0) lstMyArtists.SelectedIndex = 0;
-
-
 
             RefreshArtistAttributes();
         }
@@ -209,11 +193,7 @@ namespace LastFMBrowser.Views
         /// </summary>
         private void setArtistCount()
         {
-            //var results = context.Database.SqlQuery<QryArtistCount>
-            //    (String.Format(QRY_03_ALL_USERS_ARTISTS_COUNT, mParent.GetActiveUser())).FirstOrDefault();
 
-            Console.WriteLine(String.Format(ucDashboard.QRY_03_ALL_USERS_ARTISTS_COUNT,
-                    String.Format(ucDashboard.QRY_02_ALL_USER_ARTISTS_CORE, GetSelectedUser(), txtSearchArtists.Text, "ArtistName")));
             var results = context.Database.SqlQuery<QryArtistCount>
                 (String.Format(ucDashboard.QRY_03_ALL_USERS_ARTISTS_COUNT,
                     String.Format(ucDashboard.QRY_02_ALL_USER_ARTISTS_CORE, GetSelectedUser(), txtSearchArtists.Text, "ArtistName"))).FirstOrDefault();
@@ -224,7 +204,6 @@ namespace LastFMBrowser.Views
 
         private void txtSearchArtists_TextChanged(object sender, EventArgs e)
         {
-            
             LoadArtistList();
         }
 
@@ -254,7 +233,6 @@ namespace LastFMBrowser.Views
             }
 
             var artistDetails = context.spFIND_ARTIST_DETAIL(mArtistID).FirstOrDefault();
-            Console.WriteLine(artistDetails);
 
 
             try
@@ -298,8 +276,6 @@ namespace LastFMBrowser.Views
         *******************************/
         private void RefTagList()
         {
-            Console.WriteLine("Refreshing tag list with artist id = " + lstMyArtists.SelectedValue);
-            Console.WriteLine("SQL = " + String.Format(ucDashboard.QRY_04_ARTIST_TAGS, GetSelectedUser(), lstMyArtists.SelectedValue));
             var results = context.Database.SqlQuery<QryTagValue>(String.Format(ucDashboard.QRY_04_ARTIST_TAGS, GetSelectedUser(), lstMyArtists.SelectedValue));
 
             Dictionary<int, string> listSource = new Dictionary<int, string>();
@@ -308,7 +284,6 @@ namespace LastFMBrowser.Views
             try { var mInt = results.Count() <= 0; } catch (SqlException sExc) { return; }
             foreach (var result in results)
             {
-                Console.WriteLine(result.TagID + " - " + result.TagValue);
                 listSource.Add(result.TagID, result.TagValue);
             }
 
@@ -329,9 +304,6 @@ namespace LastFMBrowser.Views
 
         private void LoadUserList()
         {
-
-
-            Console.WriteLine("Expected SQL = " + String.Format(ucDashboard.QRY_09_USER_FRIENDS, txtSearchFriends.Text));
             var results = context.Database.SqlQuery<QryUserList>(String.Format(ucDashboard.QRY_09_USER_FRIENDS, txtSearchFriends.Text));
 
 
@@ -371,6 +343,19 @@ namespace LastFMBrowser.Views
         private void SetActiveUser(long newID)
         {
             ActiveUserID = newID;
+            mParent.SetPageTitle("Browse Users - " + ((KeyValuePair<long, string>)lstUsers.SelectedItem).Value, false);
         }
+
+        private void btnAddFriend_Click(object sender, EventArgs e)
+        {
+            AddNewFriend((long) mParent.GetActiveUser(), (long) lstUsers.SelectedValue);
+        }
+
+        private void AddNewFriend(long UserID, long FriendID)
+        {
+            try { context.spADD_FRIEND(UserID, FriendID); }
+            catch (Exception exc) { Console.WriteLine(exc); throw exc; }
+        }
+
     }
 }

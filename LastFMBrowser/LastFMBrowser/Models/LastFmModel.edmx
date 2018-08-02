@@ -201,6 +201,10 @@
           <Parameter Name="ARTIST" Type="bigint" Mode="In" />
           <Parameter Name="TAGVALUE" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="spADD_FRIEND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERID" Type="bigint" Mode="In" />
+          <Parameter Name="FRIENDID" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="spFIND_ARTIST_DETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ARTIST_ID" Type="bigint" Mode="In" />
         </Function>
@@ -221,9 +225,6 @@
           <Parameter Name="USERID" Type="bigint" Mode="In" />
           <Parameter Name="ARTIST" Type="bigint" Mode="In" />
           <Parameter Name="TAGVALUE" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="VALIDATE_LOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="USERID" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="LastFMDataModelStoreContainer">
           <EntitySet Name="lnkUserArtist" EntityType="Self.lnkUserArtist" Schema="dbo" store:Type="Tables" />
@@ -503,6 +504,10 @@
           <FunctionImport Name="VALIDATE_LOGIN">
             <Parameter Name="USERID" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="spADD_FRIEND">
+            <Parameter Name="USERID" Mode="In" Type="Int64" />
+            <Parameter Name="FRIENDID" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="sysMenuList">
           <Key>
@@ -700,7 +705,7 @@
           <FunctionImportMapping FunctionImportName="spFIND_USER_NAME" FunctionName="LastFMDataModel.Store.spFIND_USER_NAME" />
           <FunctionImportMapping FunctionImportName="spREMOVE_USER_ARTIST_TAGS" FunctionName="LastFMDataModel.Store.spREMOVE_USER_ARTIST_TAGS" />
           <FunctionImportMapping FunctionImportName="spSET_USER_ARTIST_TAGS" FunctionName="LastFMDataModel.Store.spSET_USER_ARTIST_TAGS" />
-          <FunctionImportMapping FunctionImportName="VALIDATE_LOGIN" FunctionName="LastFMDataModel.Store.VALIDATE_LOGIN" />
+          <FunctionImportMapping FunctionImportName="spADD_FRIEND" FunctionName="LastFMDataModel.Store.spADD_FRIEND" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

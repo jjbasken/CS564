@@ -200,5 +200,18 @@ namespace LastFMBrowser.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("VALIDATE_LOGIN", uSERIDParameter);
         }
+    
+        public virtual int spADD_FRIEND(Nullable<long> uSERID, Nullable<long> fRIENDID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(long));
+    
+            var fRIENDIDParameter = fRIENDID.HasValue ?
+                new ObjectParameter("FRIENDID", fRIENDID) :
+                new ObjectParameter("FRIENDID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spADD_FRIEND", uSERIDParameter, fRIENDIDParameter);
+        }
     }
 }
