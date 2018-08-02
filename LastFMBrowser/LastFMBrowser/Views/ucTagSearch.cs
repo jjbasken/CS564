@@ -13,6 +13,8 @@ namespace LastFMBrowser.Views
 {
     public partial class ucTagSearch : UserControl, ISwapPanelSubForm
     {
+        //Parent form
+        private frmMain mParent { get; set; }
         public ucTagSearch()
         {
             InitializeComponent();
@@ -59,14 +61,10 @@ namespace LastFMBrowser.Views
                 frmMain.ArtistID = Convert.ToInt32(dgArtists.Rows[e.RowIndex].Cells[0].Value.ToString());
                 frmMain.ArtistName = dgArtists.Rows[e.RowIndex].Cells[1].Value.ToString();
                 frmMain.BandURL = dgArtists.Rows[e.RowIndex].Cells[2].Value.ToString();
-                this.Hide();
-                Panel parentForm = (this.Parent as Panel);
+                mParent = (this.ParentForm as frmMain);
                 LastFMBrowser.Views.ucArtistPage artistPage = new ucArtistPage();
-                artistPage.Dock = DockStyle.Fill;
-                artistPage.Show();
-                parentForm.Controls.Add(artistPage);
-                artistPage.BringToFront();
-            }
+                mParent.ChangeSubForm(artistPage);
+             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);

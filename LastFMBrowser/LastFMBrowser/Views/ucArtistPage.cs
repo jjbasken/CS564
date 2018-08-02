@@ -14,19 +14,13 @@ namespace LastFMBrowser.Views
 {
     public partial class ucArtistPage : UserControl, ISwapPanelSubForm
     {
+        //Parent form
+        private frmMain mParent { get; set; }
+        private long userID;
         public ucArtistPage()
         {
-            InitializeComponent();
-            if (frmMain.ArtistID != 0)
-            {
-                dgTopTracks_Load(frmMain.ArtistID);
-                dgTopTags_Load(frmMain.ArtistID);
-                dgSimilarArtists_Load(frmMain.ArtistID);
-                dgUserTags_Load(frmMain.ArtistID);
-                OtherUserGrid_Load(frmMain.ArtistID, frmMain.User_ID);
-                lnkArtistHeader.Text = frmMain.ArtistName;
-            }
 
+            InitializeComponent();
         }
 
         private void OtherUserGrid_Load(long artistID, long user_ID)
@@ -45,8 +39,14 @@ namespace LastFMBrowser.Views
         }
         private void dgTopTracks_Load(long ArtistID)
         {
-            LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-            dgTopTracks.DataSource = db.FIND_TOP_TRACKS(ArtistID);
+            try
+            {
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                dgTopTracks.DataSource = db.FIND_TOP_TRACKS(ArtistID);
+            } catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void dgTopTracks_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -56,8 +56,15 @@ namespace LastFMBrowser.Views
         }
         private void dgTopTags_Load(long ArtistID)
         {
+            try
+            {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
                 dgTopTags.DataSource = db.FIND_TOP_TAGS(ArtistID);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
         private void dgSimilarArtists_Load(long ArtistID)
         {
@@ -65,7 +72,7 @@ namespace LastFMBrowser.Views
             {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
                 dgSimilarArtists.DataSource = db.GET_SIMILAR_ARTISTS(ArtistID);
-                }
+            }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message);
@@ -74,39 +81,52 @@ namespace LastFMBrowser.Views
 
         private void dgSimilarArtists_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            frmMain.ArtistID = Convert.ToInt32(dgSimilarArtists.Rows[e.RowIndex].Cells[0].Value.ToString());
-            frmMain.ArtistName = dgSimilarArtists.Rows[e.RowIndex].Cells[1].Value.ToString();
-            frmMain.BandURL = dgSimilarArtists.Rows[e.RowIndex].Cells[2].Value.ToString();
-            this.Hide();
-            frmMain parentForm = (this.ParentForm as frmMain);
-            UserControl mNewSub = (UserControl)Activator.CreateInstance(Type.GetType("LastFMBrowser.Views.ucArtistPage"));
-            parentForm.ChangeSubForm((ISwapPanelSubForm) mNewSub);
+            try
+            {
+                frmMain.ArtistID = Convert.ToInt32(dgSimilarArtists.Rows[e.RowIndex].Cells[0].Value.ToString());
+                frmMain.ArtistName = dgSimilarArtists.Rows[e.RowIndex].Cells[1].Value.ToString();
+                frmMain.BandURL = dgSimilarArtists.Rows[e.RowIndex].Cells[2].Value.ToString();
+                ucArtistPage artistPage = new ucArtistPage();
+                mParent.ChangeSubForm(artistPage);
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void OnLoad(object sender, EventArgs e)
         {
+            mParent = (this.ParentForm as frmMain);
             if (frmMain.ArtistID == 0)
             {
                 this.Hide();
-                frmMain parentForm = (this.ParentForm as frmMain);
-                UserControl mNewSub = (UserControl)Activator.CreateInstance(Type.GetType("LastFMBrowser.Views.ucArtistSearch"));
-                parentForm.ChangeSubForm((ISwapPanelSubForm)mNewSub);
+                ucArtistSearch artistSearch = new ucArtistSearch();
+                mParent.ChangeSubForm(artistSearch);
             }
             else
             {
-                ((frmMain)this.ParentForm).SetPageTitle("Artist Pages: " +  frmMain.ArtistName + "", false);
+                userID = mParent.GetActiveUser();
+                mParent.SetPageTitle("Artist Pages: " +  frmMain.ArtistName + "", false);
+                dgTopTracks_Load(frmMain.ArtistID);
+                dgTopTags_Load(frmMain.ArtistID);
+                dgSimilarArtists_Load(frmMain.ArtistID);
+                dgUserTags_Load(frmMain.ArtistID);
+                OtherUserGrid_Load(frmMain.ArtistID, userID);
+                lnkArtistHeader.Text = frmMain.ArtistName;
             }
 
         }
         private void dgUserTags_Load(long ArtistID)
         {
-            try
+             try
             {
                 LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-
+               
                 var tags = (from tag in db.lnkUserTagArtists
                              join tagInfos in db.tblTags on tag.TagID equals tagInfos.tagID
-                             where tag.UserID == frmMain.User_ID && tag.ArtistID == frmMain.ArtistID
+                             where tag.UserID ==  userID && tag.ArtistID == frmMain.ArtistID
                              group tagInfos by tagInfos.tagValue into tagGroup
                              select new
                              {
@@ -129,10 +149,13 @@ namespace LastFMBrowser.Views
             {
                 string input = Microsoft.VisualBasic.Interaction.InputBox("Enter tag", "Add a tag", "", -1, -1);
             LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-            db.TAG_ARTIST(frmMain.User_ID, frmMain.ArtistID, input);
+            db.TAG_ARTIST(userID, frmMain.ArtistID, input);
             } catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                if (exc.InnerException != null)
+                    MessageBox.Show(exc.InnerException.Message);
+                else
+                    MessageBox.Show(exc.Message);
             }
             this.RefreshUserControl();
         }
@@ -143,8 +166,8 @@ namespace LastFMBrowser.Views
             {
                 try
                 {
-                    LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
-                db.REMOVE_TAG(frmMain.User_ID, frmMain.ArtistID, dgUserTags.SelectedCells[0].Value.ToString());
+                LastFMBrowser.Models.LastFMDataEntities db = new LastFMBrowser.Models.LastFMDataEntities();
+                db.REMOVE_TAG(userID, frmMain.ArtistID, dgUserTags.SelectedCells[0].Value.ToString());
                 this.RefreshUserControl();
                 }
                 catch (Exception e_userTagKeyDown)
@@ -162,22 +185,14 @@ namespace LastFMBrowser.Views
         private void btnArtistSearch_Click(object sender, EventArgs e)
         {
             frmMain.ArtistID = 0;
-            Panel parentForm = (this.Parent as Panel);
             LastFMBrowser.Views.ucArtistSearch artistSearch = new ucArtistSearch();
-            artistSearch.Dock = DockStyle.Fill;
-            artistSearch.Show();
-            parentForm.Controls.Add(artistSearch);
-            artistSearch.BringToFront();
+            mParent.ChangeSubForm(artistSearch);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Panel parentForm = (this.Parent as Panel);
             LastFMBrowser.Views.ucTagSearch tagSearch = new ucTagSearch();
-            tagSearch.Dock = DockStyle.Fill;
-            tagSearch.Show();
-            parentForm.Controls.Add(tagSearch);
-            tagSearch.BringToFront();
+            mParent.ChangeSubForm(tagSearch);
         }
 
         private void dgTopTags_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -193,12 +208,8 @@ namespace LastFMBrowser.Views
         }
         private void runTagSearch(String tag)
         {
-            Panel parentForm = (this.Parent as Panel);
             LastFMBrowser.Views.ucTagSearch tagSearch = new ucTagSearch(tag);
-            tagSearch.Dock = DockStyle.Fill;
-            tagSearch.Show();
-            parentForm.Controls.Add(tagSearch);
-            tagSearch.BringToFront();
+            mParent.ChangeSubForm(tagSearch);
         }
 
         private void dgUserTags_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -209,6 +220,20 @@ namespace LastFMBrowser.Views
             } catch (Exception e_dgUserTagsClick)
             {
                 MessageBox.Show(e_dgUserTagsClick.Message);
+            }
+        }
+
+        private void dgOtherUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                long otherUserId = Convert.ToInt32(dgOtherUsers.SelectedCells[0].Value.ToString());
+                ucBrowseUsers otherUser = new ucBrowseUsers(otherUserId);
+                mParent.ChangeSubForm(otherUser);
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
             }
         }
     }
